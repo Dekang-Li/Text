@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box,
+			#box2 {
+				width: 100px;
+				height: 100px;
+				background: red;
+				margin: 10px;
+			}
+			ul {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			li {
+				float: left;
+				width: 50px;
+				height: 50px;
+				margin: 20px;
+				background: green;
+			}
+			.active {
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box"></div>
+		<div id="box2"></div>
+		<ul>
+			<li class="active"></li>
+			<li></li>
+			<li name="aa"></li>
+			<li name="aa-1"></li>
+			<li></li>
+			<li name="aa-12"></li>
+			<li></li>
+			
+			<input type="text">
+			<input type="button">
+			<input type="submit">
+			<input type="checkbox"/>
+			<input type="radio" checked="checked"/>
+			<input type="password"/>
+		
+		</ul>
+	</body>
+	<script src="jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" >
+		var $box = $("#box");
+		var $box2 = $("#box2");
+//		$box.click(function() {
+//			$(this).css("background","yellow");
+//		});
+		
+//		$box2.click(function() {
+//			$(this).css({
+//				width: 200,
+//				height: 200,
+//				background: "green"
+//			});
+//		});
+		
+//		$("#box2").css({
+//			width: 200,
+//			height: 200,
+//			background: "green"
+//		});
+		
+		$("li").click(function() {		
+//			$(this).addClass("active").siblings("li").removeClass("active");
+			$(this).animate({
+				width: 100,
+				height: 100,
+				opacity: .5
+			});
+		});
+		
+		//加下标
+//		$("li")  所有li
+//		$("li").eq(2).css("background","red");
+//		$($("li")[4]).css("background","red");    不能直接加[],会变成原生js，所以再加一个$;
+//		$("*").css("background","red");            $("*")   获取所有
+		
+//		$("li[name = 'aa']").css("background","yellow");    $("li[name = 'aa']")  name="aa"的li
+//		$("li[name |= 'aa']").css("background","yellow");  $("li[name = 'aa']")  name="aa"或以aa-开头的li
+//		$("li[name *= 'aa']").css("background","yellow"); $("li[name *= 'aa']")所有name包含aa的li
+//		$("li[name != 'aa']").css("background","yellow");$("li[name != 'aa']")排除name="aa"的li
+//		$("li[name ~= 'aa']").css("background","yellow");获取有name属性=value值元素||获取有name属性空格value值元素
+//		$("li[name $= 'aa']").css("background","yellow");[name$="value"]:获取以value结尾
+//		$("li[name ^= 'aa']").css("background","yellow");[name^="value"]：获取以value开头
+
+//伪类选择
+//		$('input:submit').click(function(){
+//			alert('走你!')
+//		});
+
+//		$('input:checked').click(function(){
+//			alert('走你!')
+//		});
+
+//		$("li:odd").css("background","yellow");   //奇数
+//		$("li:even").css("background","yellow")   //偶数
+//		$("li:eq(1)").css("background","yellow")   //第几个   从0开始
+//		$("li:first-child").css("background","yellow")   //父级元素下的第几个
+//		$("li:gt(3)").css("background","yellow")   //大于第3个的元素   不包含第3个
+//		$("li:lt(3)").css("background","yellow")   //小于第3个的元素   不包含第3个
+		
+//		$("#list .active").css("background","blue");	
+
+
+	</script>
+</html>
