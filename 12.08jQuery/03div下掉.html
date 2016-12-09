@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body {
+				margin: 0;
+			}
+			span {
+				display: block;
+				width: 60px;
+				height: 60px;
+				background: red;
+				float: left;
+				margin: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+	</body>
+	<script src="../../jquery-3.1.1.min.js"></script>
+	<script type="text/javascript">
+		(function() {
+			function set() {
+				this.span = $("span");
+				this.init();
+			}
+			
+			set.prototype.init = function() {
+				var _this = this;
+				for(var i = 0; i < this.span.length; i++) {
+					this.span[i].style.left = this.span[i].offsetLeft + "px";
+					this.span[i].style.top = this.span[i].offsetTop + "px";
+				}
+				for(var i = 0; i < this.span.length; i++) {
+					
+					this.span[i].style.margin = 0;
+					this.span[i].style.position = "absolute";
+					this.span[i].addEventListener("click",function() {
+						var _this = this;
+						_this.fnClick(_this);
+					})
+					
+				}
+				
+			}
+			
+			set.prototype.fnClick = function(_this) {
+				for(var i = 0; i < this.span.length; i++) {
+					_this.style.top = 200 + "px";
+				}
+				
+			}
+			
+			var t1 = new set;
+			
+		})();
+	</script>
+</html>

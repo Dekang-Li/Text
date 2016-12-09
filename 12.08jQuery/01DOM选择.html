@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="button" name="" id="btn" value="按钮" />
+		<ul id="list">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li>
+				<p name = "p"></p>
+			</li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</body>
+	<script src="../../jquery-3.1.1.min.js"></script>
+	<script type="text/javascript">
+//		$("p[name = 'p']").closest(".li").css("background","red");
+		var nub = 0;
+		var num = "";
+//		$("#btn").click(function() {
+//			nub++;
+//			var $li = $("<li>"+nub+"</li>");
+//			$("#list").append($li);
+//		});
+		
+		$("#btn").click(function() {
+			nub++;
+			num = nub >= 10? ""+nub : "0"+nub;
+			var $li = $("<li>"+num+"</li>");
+			$li.appendTo($("#list"));
+		});
+	</script>
+</html>
