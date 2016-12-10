@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body,
+			p {
+				margin: 0;
+			}
+
+			input {
+				margin: 0;
+				padding: 0;
+				outline: none;
+				border: none;
+			}
+
+			ul {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+
+			div {
+				width: 520px;
+				margin: 100px auto;
+			}
+
+			li {
+				height: 40px;
+				font: 14px/40px "微软雅黑";
+			}
+
+			input {
+				width: 190px;
+				height: 22px;
+				padding: 2px 5px 2px 5px;
+				font: 14px/18px "微软雅黑";
+				border: 1px solid black;
+			}
+
+			#btn {
+				widows: 200px;
+				height: 40px;
+				margin-left: 100px;
+				margin-top: 20px;
+				cursor: pointer;
+				letter-spacing: 10px;
+			}
+
+			.active {
+				border-color: red;
+			}
+
+			p {
+				display: inline-block;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="wrap">
+			<ul id="list">
+				<li>用户QQ：
+					<input type="text" />
+					<p>请输入5-11位数字</p>
+				</li>
+				<li>用户邮箱：
+					<input type="text" />
+					<p>请输入使用邮箱</p>
+				</li>
+				<li>用户生日：
+					<input type="text" />
+					<p>如：2000-01-01或2000.01.01格式</p>
+				</li>
+			</ul>
+			<input type="button" name="btn" id="btn" value="提交" />
+		</div>
+	</body>
+	<script type="text/javascript">
+		(function() {
+			var btn = document.getElementById("btn");
+			var list = document.getElementById("list");
+			var input = list.getElementsByTagName("input");
+
+			btn.addEventListener("click", click);
+
+			function click() {
+				var qq = input[0].value;
+				var yx = input[1].value;
+				var sr = input[2].value;
+				if(/^[1-9]\d{4,10}$/.test(qq)) { //QQ验证
+					input[0].className = "";
+				} else {
+					input[0].className = "active";
+				}
+
+				if(/^[1-9]\d{4,10}@qq.com$/.test(yx)) { //邮箱验证
+					input[1].className = "";
+				} else if(/^[a-zA-Z]\w{5,17}@[a-z1-9]+.(com|com.cn|cn)$/.test(yx)) {
+					input[1].className = "";
+				} else {
+					input[1].className = "active";
+				}
+
+				if((/^\d{4}-\d{2}-\d{2}$/.test(sr) || /^\d{4}.\d{2}.\d{2}$/.test(sr)) && time()) { //验证生日
+					input[2].className = "";
+				} else {
+					input[2].className = "active";
+				}
+
+				function time() {
+					var date = new Date();
+					var year = date.getFullYear() + "";
+					var month = setTime(date.getMonth() + 1);
+					var day = setTime(date.getDate());
+					var time = Number(year + month + day);
+					var newTime = Number(sr.match(/\d+/g).join(""));
+					var jq = Number(sr.match(/\d+/g).join("").substr(6,2));
+					function setTime(time) {
+						if(time < 10) {
+							return "0" + time;
+						} else {
+							return "" + time;
+						}
+					}
+
+					if(time >= newTime && time - newTime < 1000000 && jq > 0) {
+						return true;
+					} else {
+						return false;
+					}
+				}
+
+			}
+
+		})();
+	</script>
+</html>

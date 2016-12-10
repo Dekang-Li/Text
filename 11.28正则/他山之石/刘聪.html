@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #wrap label {
+            display: inline-block;
+        }
+
+        .red {
+            border: 1px solid #f00;
+        }
+
+        .green {
+            border: 1px solid #0f0;
+        }
+    </style>
+</head>
+<body>
+<label id="qq">用户QQ：<input type="text"></label>
+<label id="email">用户邮箱<input type="text"></label>
+<label id="birth">生日：<input type="text"></label>
+<input type="button" value="提交">
+<script>
+    //    qq: 全是数字、最小5位最大11，不能以0开头
+    //    邮箱：6~18个字符，可使用字母、数字、下划线，需以字母开头
+
+    var arr = [
+        /^[1-9]\d{4,10}$/,
+        /^[a-zA-Z]\w{5,17}@\w+.(com|cn|com.cn)$/,
+        /^\d{4,4}\D+\d{2,2}\D+\d{2,2}\D*$/
+    ];
+
+    var input = document.getElementsByTagName('input');
+
+    for (var i = 0; i < 3; i++) {
+        (function (i) {
+            input[i].addEventListener('blur', function () {
+                console.log(input[i].value);
+                console.log(arr[i]);
+                if (arr[i].test(input[i].value.trim())) {
+                    input[i].className = 'green';
+                } else {
+                    input[i].className = 'red';
+                }
+            });
+        })(i);
+    }
+
+    input[3].addEventListener('click', function () {
+        for (var i = 0; i < 3; i++) {
+            if (arr[i].test(input[i].value.trim())) {
+                input[i].className = 'green';
+            } else {
+                input[i].className = 'red';
+            }
+        }
+    });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<ul id="list">
+			<li class="li"></li>
+			<li></li>
+			<li class="li"></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</body>
+	<script type="text/javascript">
+		var list = document.getElementById("list");
+		//		var lis = document.getElementsByTagName("li"); //低版本不兼容className
+
+		var lis = list.children;
+		for(var i = 0; i < lis.length; i++) {
+			if(lis[i].className === "li") {
+				lis[i].style.background = "red";
+			}
+		}
+	</script>
+
+</html>

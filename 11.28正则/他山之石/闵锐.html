@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style type="text/css">
+	#wrap {
+		width: 600px;
+		height: 400px;
+		margin: 60px auto;
+		background: #999999;
+		border-radius: 10px;
+	}
+	div {
+		padding: 20px 10px;
+		width: 100%;
+		height: 100px;
+		overflow: hidden;
+		box-sizing: border-box;	
+	}
+	span {
+		float: left;
+		width: 100px;
+		height: 60px;
+		font: 20px/60px "微软雅黑";
+		color: #fff;
+		text-align: right;
+	}
+	#wrap div input {
+		margin: 10px 20px;
+		float: left;
+		width: 400px;
+		height: 40px;
+		font-size: 20px;
+	}
+	.btn {
+		margin-left: 250px;
+		width: 100px;
+		height: 50px;
+		text-align: center;
+		font: 20px/60px "微软雅黑";
+	}
+</style>
+</head>
+<body>
+	<div id="wrap">
+		<div class="qq">
+			<span>
+				QQ
+			</span>
+			<input type="text" value="" />
+		</div>
+		<div class="yx">
+			<span>
+				用户邮箱
+			</span>
+			<input type="text" value="" />
+		</div>
+		<div class="sr">
+			<span>
+				生日
+			</span>
+			<input type="text" value="" />
+		</div>
+		<input type="button" value="提交" class="btn"/>
+	</div>	
+</body>
+<script type="text/javascript">
+	(function(){
+		//获取元素
+		var wrap = document.getElementById('wrap');
+		var qq = wrap.children[0];
+		var yx = wrap.children[1];
+		var sr = wrap.children[2];
+		var tj = wrap.children[3];
+		var onOff = false;
+		var on = false;
+		var off = false;
+		var Off = false;
+		
+		//---------------------------
+		qqh();
+		youx();
+		shengr();
+		
+		//需求1 qq------------------
+		function qqh(){
+			var input = qq.children[1];
+			input.onblur = function(){
+				var str = input.value;
+				if(/^\d{5,11}$/.test(str)){
+					onOff = true;
+					input.style.borderColor = "";
+				}else{
+					input.style.borderColor = "red";
+					onOff = false;
+				}	
+			};
+		};
+		//需求2 邮箱---------------------------
+		function youx(){
+			var input = yx.children[1];
+			input.onblur = function(){
+				var str = input.value;
+				if(/^[a-zA-Z]\w{5,17}@[a-z1-9]+.(com|com.cn|cn)$/.test(str)){
+					on = true;
+					input.style.borderColor = "";
+				}else{
+					input.style.borderColor = "red";
+					on = false;
+				}
+			};
+		};
+		//需求3 生日---------------------------------
+		function shengr(){
+			var input = sr.children[1];
+			input.onblur = function(){
+				console.log(Off,off)
+				var str = input.value;
+				var arr = str.match(/\d{1,4}/g);
+				var date = new Date();
+				var year = date.getFullYear()-4;
+				//不可描述的bug，两个判断在一起，判断年份不执行
+				if(arr){
+					if(!(parseInt(arr[0]) > parseInt(year))){
+						Off = true;
+						input.style.borderColor = "";
+					}else{
+						input.style.borderColor = "red";
+						Off = false;
+						alert('年纪太小，请在大人的陪同下使用');
+					}
+				}
+				if(/^(19|20)\d{2}[.-\W]?(1[0-2]|0?[1-9])[.-\W]?(0?[1-9]|[1-2][0-9]|3[0-1])$/.test(str)){
+					off = true;
+					if(Off){
+						input.style.borderColor = "";
+					}
+				}else{
+					input.style.borderColor = "red";
+					off = false;
+				}
+			};
+			
+		};
+		//需求4 点击提交跳转
+		tj.onclick = function(){
+			console.log(onOff,on,off)
+			if(onOff&&on&&off&&Off){
+				console.log(1);
+				alert('可以使用')
+			}
+		};
+	})()
+</script>
+</html>

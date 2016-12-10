@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="{CHARSET}">
+		<title></title>
+		<style>
+			#wrap {
+				width:  500px;
+				height: 500px;
+				margin:  100px auto;
+				font-size: 20px;
+			}
+			input {
+				width:  300px;
+				height:  50px;
+				margin-bottom: 50px;
+				font-size:  16px;
+				outline: none;
+			}
+			input:nth-of-type(1){
+				margin-left:  20px;
+			}
+			input:nth-of-type(4){
+				margin-left:  53px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			QQ:<input type="text" id="qq"></br>
+			邮箱:<input type="text" id="email"></br>
+			生日:<input type="text" id="birth"></br>
+			<input type="button" value="验证" id="btn">
+		</div>
+		<script>
+			var input = document.querySelectorAll("input");
+			
+			
+			
+			input[3].addEventListener("click",fn);
+			
+			function fn(){
+				var str2 = /^(((19\d\d)|(20(0[0-9]|1[0-5])))(-|年|:|_)((0?[1-9]|1[0-2])(-|月|:|_)(0?[1-9]|1[1-9]|2[1-8])|(0?[13-9]|1[0-2])(-|月|:|_)(29|30)|(0?[13578]|1[02])-31))|(2016(-|年|:|_)((0?[1-9]|1[01])(-|月|:|_)(0?[1-9]|1[1-9]|2[1-8])|(0?[13-9]|1[01])(-|月|:|_)(29|30)|(0?[13578]|1[01])(-|月|:|_)31)|(12(-|月|:|_)1))日?$/.test(input[2].value);
+				var str = /^(\s+)?[^0]\d{4,10}$/.test(input[0].value);
+				var str1 = /^[a-z]\w{5,10}@[a-z1-9]+.(com|com.cn|cn)$/.test(input[1].value);
+				if(str&&str1&&str2){
+					alert("提交成功")
+				}else{
+					alert("提交失败")
+				}
+			};
+			for(var i=0;i<3;i++){
+				input[i].index = i;
+				input[i].addEventListener("focus",fn1)
+			}
+			function fn1() {
+				this.style.borderColor = "blue";
+				this.addEventListener("blur",fn2)
+			}
+			function fn2() {
+				var str2 = /^(((19\d\d)|(20(0[0-9]|1[0-5])))(-|年|:|_)((0?[1-9]|1[0-2])(-|月|:|_)(0?[1-9]|1[1-9]|2[1-8])|(0?[13-9]|1[0-2])(-|月|:|_)(29|30)|(0?[13578]|1[02])-31))|(2016(-|年|:|_)((0?[1-9]|1[01])(-|月|:|_)(0?[1-9]|1[1-9]|2[1-8])|(0?[13-9]|1[01])(-|月|:|_)(29|30)|(0?[13578]|10)(-|月|:|_)31)|(12(-|月|:|_)1))日?$/.test(input[2].value);
+				var str = /^(\s+)?[^0]\d{4,10}$/.test(input[0].value);
+				var str1 = /^[a-z]\w{5,10}@[a-z1-9]+.(com|com.cn|cn)$/.test(input[1].value);
+				var arr = [str,str1,str2]
+				console.log(str2)
+				if(arr[this.index]){
+					input[this.index].style.borderColor = "green";
+				}else{
+					input[this.index].style.borderColor = "red";
+				}
+			}
+		</script>
+	</body>
+</html>

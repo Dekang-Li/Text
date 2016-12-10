@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<script type="text/javascript">
+		var str = "2018----///----11.28";
+		var s = str.replace(/(\d+)\D+(\d+)\D+(\d+)/, function($0, $1, $2, $3) {
+			return $1 + "年" + $2 + "月" + $3 + "日";
+		});
+		console.log(s);
+	</script>
+
+</html>

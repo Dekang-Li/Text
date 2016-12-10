@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            ul{
+                padding:0;
+                margin:0;
+                list-style: none;
+            }
+            p{
+                margin:0;
+            }
+            input{
+                border:none;
+                border:1px solid #ccc;
+                padding:0;
+            }
+            form{
+              width:500px;
+              margin:30px auto;
+            }
+            #wrap{
+                width:500px;
+            }
+            li{
+                width:500px;
+                overflow: hidden;
+                margin:5px 0;
+            }
+            li span{
+                float:left;
+                width:50px;
+                text-align: left;
+            }
+            li input{
+                float:left;
+                width:246px;
+                height:25px;
+            }
+            li p{
+                width:190px;
+                float:left;
+                font:12px/15px "宋体";
+                padding-left:10px;
+            }
+            #btn{
+                width:250px;
+                height:30px;
+                margin:10px 0 0 50px;
+                border:none;
+            }
+            .active{
+                border-color: green;
+            }
+            .show{
+                border-color: red;
+            }
+        </style>
+        <script>
+            window.onload=function(){
+                var btn=document.getElementById("btn");
+                var input=document.querySelectorAll("#wrap input");
+                var arr=Array.from(input);
+                btn.addEventListener("click",fnclick);
+
+                input[0].select();
+                //QQ邮箱
+                var  QQ=input[0];
+                QQ.onblur=function(){
+                    var str=QQ.value;
+                    if(/^[1-9]\d{4,10}$/.test(str)){
+                        this.className="active";
+                    }else{
+                        this.className="show";
+                    }
+
+                };
+                //邮箱
+                var mail=input[1];
+                mail.onblur=function(){
+                    var str=mail.value;
+                    if(/^[a-zA-Z]\w{5,17}@[a-z1-9]+.(com|com.cn|cn)$/.test(str)){
+                        this.className="active";
+                    }else{
+                        this.className="show";
+                    }
+                };
+                var birthday=input[2];
+                birthday.onblur=function(){
+                    var str=birthday.value;
+                    if(/^\d{4}-\d{1,2}-\d{1,2}?$/.test(str)){
+                        if(str.replace(/-/g,"")>timer()||str.replace(/-/g,"")<(timer()-1000000)){   //大于当前的时间也不行,小于当前时间的前一百年也不可以。
+
+                            this.className="show";
+                        }else{
+                           this.className="active";
+                        }
+                    }else{
+                        this.className="show";
+                    }
+                }
+                function fnclick(){
+                    for(var i=0; i<input.length; i++){
+                       if(input[i].className!="active"){
+                            input[i].select();
+                            input[i].className="show"
+                            return;
+                        }
+                    }
+
+                };
+                setInterval(timer, 20);
+                function timer(){
+                    var date=new Date();
+                    var year = date.getFullYear();
+                    var month=date.getMonth()+1;
+                    var date2=date.getDate();
+                    var timer=nub(year)+nub(month)+nub(date2);
+                    function nub(nub){
+                        return nub=nub<10?"0"+nub:""+nub;
+                    }
+                    return timer;
+                };
+
+            }
+        </script>
+    </head>
+    <body>
+    <form>
+        <ul id="wrap">
+            <li><span>QQ:</span><input type="text"><p>5到11位数字组成，且开头不能为0</p></li>
+            <li><span>邮箱:</span><input type="text"><p>6~18个字符，可使用字母、数字、下划线，需以字母开头</p></li>
+            <li><span>生日:</span><input type="text"><p>格式必须是如：1999-00-00</p></li>
+        </ul>
+            <input type="button" value="确定" id="btn">
+    </form>
+    </body>
+</html>

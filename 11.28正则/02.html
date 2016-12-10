@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		(function() {
+			/**/
+			var str = "习近平说：'法轮功是个好东西'";
+			var s = str.replace(/习近平|法轮功/g,function($0) {
+				var temp = "";
+				for(i = 0; i < $0.length; i++) {
+					temp += "*";
+				}
+				return temp;
+			
+			});
+			console.log(s);	
+		})();
+	</script>
+</html>

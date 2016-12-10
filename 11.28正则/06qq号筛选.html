@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" id="text"/>
+		<input type="button" id="btn" value="提交" />
+	</body>
+	<script>
+		(function() {
+			var text = document.getElementById("text");
+			var btn = document.getElementById("btn");
+			btn.addEventListener("click",function() {
+				var val = text.value;
+				if(/^[1-9]\d{4,10}$/.test(val)){
+					alert("qq");
+				}else{
+					alert("不是qq");
+				};
+			});
+		})();
+	</script>
+</html>

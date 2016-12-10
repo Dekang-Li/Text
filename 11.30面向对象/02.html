@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<script type="text/javascript">
+		(function() {
+			function teacher(name, age) {
+				this.name = name;
+				this.age = age;
+//				this.say = function() {
+//					alert(say);
+//				}
+			}
+//			teacher.prototype.say = function() {
+//				alert("我叫" + this.name + ",我今年" + this.age + "岁。");
+//			}
+			
+			Object.prototype.say = function() {
+				alert("我叫" + this.name + ",我今年" + this.age + "岁。");
+			}
+			var mm = new teacher("莫莫", "20");
+			var fq = new teacher("付强", "20");
+
+//			mm.say = function() {
+//				alert("哈哈");
+//			}
+			
+			console.dir(mm);
+//			mm.say();
+//			fq.say();
+
+//          原型链里面找函数       函数里面找原型（对象）           对象里面找链
+		})();
+	</script>
+
+</html> 
