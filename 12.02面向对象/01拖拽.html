@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body {
+				margin: 0;
+			}
+			
+			div {
+				position: absolute;
+				width: 100px;
+				height: 100px;
+				cursor: pointer;
+			}
+			
+			#box {
+				background: red;
+			}
+			
+			#box2 {
+				background: blue;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box"></div>
+		<div id="box2"></div>
+	</body>
+	<script type="text/javascript">
+		(function() {
+			function Tab(id) {
+				this.box = document.getElementById(id);
+				this.disX = 0;
+				this.disY = 0;
+				this.isSet = false;
+				this.isMove = true;
+				this.init();
+				this.fnClick();
+			}
+
+			Tab.prototype.init = function() {
+				var _this = this;
+				this.box.addEventListener("mousedown", function(ev) {
+					_this.fnDown(ev);
+				})
+			}
+			Tab.prototype.fnDown = function(ev) {
+				var _this = this;
+				this.disX = ev.pageX - this.box.offsetLeft;
+				this.disY = ev.pageY - this.box.offsetTop;
+				document.addEventListener("mousemove", move);
+
+				function move(ev) {
+					_this.fnMove(ev);
+				}
+				document.addEventListener("mouseup", up);
+
+				function up() {
+					_this.fnUp(move, up);
+				}
+				ev.preventDefault();
+			}
+			Tab.prototype.fnMove = function(ev) {
+				this.isMove = false;
+				this.box.style.left = ev.pageX - this.disX + "px";
+				this.box.style.top = ev.pageY - this.disY + "px";
+			}
+			Tab.prototype.fnUp = function(move, up) {
+				document.removeEventListener("mousemove", move);
+				document.removeEventListener("mouseup", up);
+			}
+			Tab.prototype.fnClick = function() {
+				var _this = this;
+				this.box.addEventListener("click", click);
+
+				function click() {
+					_this.fnChange();
+				}
+			}
+			Tab.prototype.fnChange = function() {
+				if(this.isMove) {
+					if(this.isSet) {
+						this.box.style.background = "";
+					} else {
+						this.box.style.background = "green";
+					}
+					this.isSet = !this.isSet;
+				} else {
+					this.isMove = true;
+				}
+
+			}
+
+			var t = new Tab("box");
+			var t2 = new Tab("box2");
+
+		})();
+	</script>
+
+</html>

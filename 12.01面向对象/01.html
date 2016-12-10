@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+			}
+			
+			input {
+				margin: 0;
+				padding: 0;
+				outline: none;
+			}
+			
+			#wrap,
+			#wrap2 {
+				width: 150px;
+				float: left;
+			}
+			
+			#box div,
+			#box2 div {
+				width: 150px;
+				height: 150px;
+				border: 1px solid beige;
+			}
+			
+			.hide {
+				display: none;
+			}
+			
+			.show {
+				display: block;
+			}
+			
+			.active {
+				background: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="wrap">
+			<input type="button" value="按钮1" class="active" />
+			<input type="button" value="按钮2" />
+			<input type="button" value="按钮3" />
+			<div id="box">
+				<div class="show">111111</div>
+				<div class="hide">22222</div>
+				<div class="hide">33333</div>
+			</div>
+		</div>
+		<div id="wrap2">
+			<input type="button" value="按钮1" class="active" />
+			<input type="button" value="按钮2" />
+			<input type="button" value="按钮3" />
+			<div id="box2">
+				<div class="show">111111</div>
+				<div class="hide">22222</div>
+				<div class="hide">33333</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		(function() {
+			function Tab(id) {
+				this.wrap = document.getElementById(id);
+				this.btns = this.wrap.getElementsByTagName("input");
+				this.box = this.wrap.getElementsByTagName("div")[0];
+				this.divs = this.box.getElementsByTagName("div");
+				this.init();
+			}
+
+			Tab.prototype.init = function() {
+				var _this = this;
+				console.log(this);
+				for(var i = 0; i < this.btns.length; i++) {
+					this.btns[i].index = i;
+					this.btns[i].onclick = function() {
+						_this.change(this);
+					}
+				}
+			}
+
+			Tab.prototype.change = function(_this) {
+				console.log(this);
+				for(var i = 0; i < this.btns.length; i++) {
+					this.btns[i].className = "";
+					this.divs[i].className = "hide"
+				}
+				_this.className = 'active';
+				this.divs[_this.index].className = 'show';
+			}
+
+			var t = new Tab("wrap");
+			var t2 = new Tab("wrap2");
+		})();
+	</script>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		arr = [1,2,3];
+		function fn1() {
+			console.log(this)
+		}
+		fn1();     //指向window
+		
+		arr.fn1();   //  arr
+		
+		document.onclick = fn1;   //指向那个触发事件的对象         pc端
+		
+		document.onclick = function() {
+			fn1();     //指向window
+		}
+		
+		document.onclick = function fn1() {
+			alert(this);        //指向那个触发事件的对象
+		}
+		
+		document.onclick = function() {
+			setInterval(fn1,1000);     //有定时器     指向window     只要有定时器并且直接调用就是window 
+		}
+		
+		document.onclick = function() {
+			setInterval(document.fn1,1000);  //有定时器     指向window     只要有定时器并且直接调用就是window 
+		}
+		
+		document.onclick = function() {
+			setInterval(document.fn1(),1000);  //document.fn1()直接自己调用不用定时器调用      指向document   
+		}
+		
+		document.onclick = function() {
+			setInterval(function() {
+				arr.fn1();   // 指向arr
+			},1000);  // 只要有定时器并且直接调用就是window    不是直接调用    this指向arr
+		}
+		
+		arr.onclick = function() {
+			document.fn1();     //指向document
+		}
+		
+		document.onclick = function() {
+			setInterval(function() {
+				arr.fn1.call(document);  // 指向document
+			},1000);  // 只要有call或apply  指谁就是谁
+		}
+		
+		document.onclick = function() {
+			setInterval(function() {
+				new fn1();  // 指向这个Obj
+			},1000);  // 只要有new  就指向Obj
+		}
+		
+		document.onclick = function() {
+			(function() {
+				alert(this);    //指向window;   自执行
+			})();
+		};
+		
+		function() {
+			alert(this);   //报错     需加函数名
+		};
+ 	</script>
+</html>
