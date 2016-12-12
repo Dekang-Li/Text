@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+    body,p{
+        margin:0;
+    }
+    ul{
+        margin:0;
+        padding:0;
+        list-style: none;
+    }
+    .clearFix:after{
+        content:"";
+        display:block;
+        clear:both;
+    }
+    #wrap{
+        width:600px;
+        background:#eee;
+        padding:10px;
+        margin:30px auto;
+        font:16px/30px "宋体";
+    }
+    #message input,#message textarea{
+        width:100%;
+        height:30px;
+        margin:0;
+        padding:0;
+        outline:none;
+        display: block;
+        padding:5px;
+        box-sizing:border-box;
+        background:#fff;
+        border:1px solid #ccc;
+    }
+    #message textarea{
+        height:100px;
+        resize: none;
+        overflow: auto;
+        margin:  5px 0;
+    }
+    #messageList #Mheader{
+        width:100%;
+        background:#ccc;
+        margin:5px 0;
+        padding:0 10px;
+        box-sizing:border-box;
+
+    }
+    #info{
+        height:100px;
+        background:#fcfcfc;
+        font:16px/100px "宋体";
+        text-align: center;
+        margin-top:5px 0;
+        overflow:hidden;
+    }
+    #list{
+        overflow:hidden;
+    }
+    #list li{
+        border-bottom: 1px solid #999;
+        height:0;
+        overflow:hidden;
+
+    }
+    #list header{
+        height:30px;
+        padding:0 5px;
+        background:#eeeba5;
+    }
+    #list header span{
+        float:left;
+    }
+    #list header time{
+        float:right;
+    }
+    #list li p{
+        padding:0 5px;
+        background:#f4d09c;
+        text-indent: 2.5em;
+    }
+</style>
+
+</head>
+<body>
+<div id="wrap">
+    <div id="message">
+        <input type="text" placeholder="请输入您的名字">
+        <textarea placeholder="请输入留言的内容"></textarea>
+        <input type="button" value="确定">
+    </div>
+    <div id="messageList">
+        <header id="Mheader">留言板</header>
+        <div id="info">—— 抢沙发 ——</div>
+        <ul id="list">
+
+        </ul>
+    </div>
+</div>
+</body>
+<script src="jquery-3.1.1.min.js"></script>
+<script>
+(function(){
+        $('input[type="button"]').click(function(){
+            if(!$('input[type="text"]').val()|| !$('textarea').val()){
+                alert("输入完整的信息")
+                return
+            };
+            var $li=$("<li>")
+            var $section=$("<section>")
+            var $header=$("<header>")
+            var $span=$("<span>")
+            var $p=$("<p>")
+
+
+            $li.append($section);
+            $section.append($header)
+            $section.append($p);
+            $header.append($span);
+            $("#list").prepend($li);
+
+            $span.text("名字:"+$('input[type="text"]').val());
+            $p.text($('textarea').val())
+            $li.animate({
+                height:$section.height(),
+            })
+
+        })
+})()
+</script>
+</html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+	#list {
+		margin: 10px auto;
+		width: 400px;	
+	}
+	#list ul {
+		display: none;	
+	}
+</style>
+<script src="jquery-3.1.1.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<!--<ul id="list"></ul>-->
+<script>
+	(function(){
+		var data = [
+			{
+				name:"选项一",
+				child: [
+					{name:"选项1"},
+					{	name:"选项2",
+						child: [
+							{name:"选项(1)"},
+							{name:"选项(2)"},
+						]
+					},
+					{	name:"选项3",
+						child: [
+							{name:"选项(1)"},
+							{name:"选项(2)"},
+							{name:"选项(3)"},
+						]
+					}
+				]
+			},{
+				name:"选项二",
+				child: [
+					{name:"选项1"},
+					{name:"选项2"},
+					{name:"选项3"},
+					{	name:"选项4",
+						child:[
+							{name:"选项(1)"},
+							{name:"选项(2)"},
+							{name:"选项(3)"},
+						]
+					}
+				]
+			}
+		];
+		/*var ul = document.getElementById("list");
+		var str = '';
+		function fn(obj){
+			obj.forEach(function(item){
+				str += '<li><h2>'+item.name+'</h2>';
+				if(item.child){
+					str +='<ul>';
+					fn(item.child);
+					str +='</ul>';
+				}
+				str += '</li>';
+			});
+		};
+		fn(data);
+		ul.innerHTML = str;*/
+		/*function fn(obj){  //运用jq获取元素时，会把没有关闭的节点自动添加关闭
+			obj.each(function(i,e){
+				$('#list').html($('#list').html() + '<li><h2>'+e.name+'</h2>');
+				if(e.child){
+					$('#list').html($('#list').html() + '<ul>');
+					fn($(e.child));
+					$('#list').html($('#list').html() + '</ul>');
+				}	
+				$('#list').html( $('#list').html() + '</li>');
+			});	
+		};
+		fn($(data))
+		*/
+		var $ul = $('<ul id="list"></ul>')
+		$('body').append($ul);
+		function fn(obj,$ul){
+			obj.each(function(i,e){
+				var $li = $('<li></li>');
+				$ul.append($li);
+				var $h2 = $('<h2>'+e.name+'</h2>');
+				$li.append($h2);
+				if($(e.child)){
+					var $ul1 = $('<ul></ul>');
+					$li.append($ul1);
+					fn($(e.child),$ul1);
+				}
+			})	
+		};
+		fn($(data),$ul);
+		$('h2').on('click',function(){
+			console.log($(this).next())
+			if($(this).next().length){  //jq里就算没有有会有一个object，只是length为0
+				var n = $(this).next().css('display');
+				// 将同一级li下面的ul全清，但是保留被点击的这一个的ul
+				/*if($(this).parent().parent().children().children().length > 1){
+					$(this).parent().parent().children().children('ul').css('display','none');
+					$(this).next().css('display',n); 	
+				}*/
+				if($(this).parent().parent('ul').find('h2').next().length){
+					$(this).parent().parent('ul').find('ul').css('display','none');
+					$(this).next().css('display',n); 	
+				}
+				if(n == 'block'){
+					$(this).next().css('display','none'); 
+				}else{
+					$(this).next().css('display','block'); 
+				}
+			}
+		})
+	})()
+</script>
+</body>
+</html>

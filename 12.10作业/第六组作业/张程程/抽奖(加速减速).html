@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+.wrap {
+	width: 197px;
+	height: 197px;
+	margin: 15% auto;
+	position: relative;
+}
+.wrap div {
+	width: 48px;
+	height: 48px;
+	background: red;
+	border: 1px solid green;
+	position: absolute;
+	color: #fff;
+	font: 14px/48px "微软雅黑";
+	text-align: center;
+}
+.wrap .active {
+	background: greenyellow;
+}
+.wrap div:nth-child(1) {
+	left: 0;
+	top: 0;
+}
+.wrap div:nth-child(2) {
+	left: 49px;
+	top: 0;
+}
+.wrap div:nth-child(3) {
+	left: 98px;
+	top: 0;
+}
+.wrap div:nth-child(4) {
+	left: 147px;
+	top: 0;
+}
+.wrap div:nth-child(5) {
+	right: 0;
+	top: 49px;
+}
+.wrap div:nth-child(6) {
+	right: 0;
+	top: 98px;
+}
+.wrap div:nth-child(7) {
+	right: 0;
+	top: 147px;
+}
+.wrap div:nth-child(8) {
+	right: 49px;
+	top: 147px;
+}
+.wrap div:nth-child(9) {
+	right: 98px;
+	top: 147px;
+}
+.wrap div:nth-child(10) {
+	right: 147px;
+	top: 147px;
+}
+.wrap div:nth-child(11) {
+	left: 0;
+	top: 98px;
+}
+.wrap div:nth-child(12) {
+	left: 0;
+	top: 49px;
+}
+input {
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	left: 38%;
+	top: 43%;
+	z-index: 2;
+	width: 50px;
+	height: 30px;
+	font: 14px/30px "微软雅黑";
+}
+</style>
+<script src="jquery-3.1.1.js"></script>
+<script>
+$(function () {
+	var $div = $('.wrap div');
+	var len = $div.length;
+	var timer = null;
+	var onOff = true;
+	
+	$('input').click(function () {
+		var num = Math.floor(Math.random()*50 + 50);//随机跑的总个数
+		var bSpeed = Math.floor(Math.random()*5 + 5);//随机跑到5-10之间开始加速
+		var n = 0;//实时记录跑到第几个
+		if ( !onOff ) {
+			return;
+		}
+		onOff = false;
+		timer = setInterval(function () {
+			$div.attr('class','');
+			$div.eq(n%len).attr('class','active');
+			n++;
+			if ( n >= bSpeed ) {
+				clearInterval(timer);
+				timer = setInterval(function () {
+					n++;
+					if ( n >= Math.floor(4/5*num) ) {
+						clearInterval(timer);
+						timer = setInterval(function () {
+							n++;
+							if ( n >= num ) {
+								onOff = true;
+								clearInterval(timer);
+								if ( n%len == 0 ) {
+									alert('wow~~~~lucky dog!!!恭喜你获得特等奖');
+								} else {
+									alert('恭喜你获得'+ n%len +'等奖');
+								}
+							} else {
+								$div.attr('class','');
+								$div.eq(n%len).attr('class','active');
+							}
+						},150);
+					}
+					$div.attr('class','');
+					$div.eq(n%len).attr('class','active');
+				},30);
+			}
+		},100);
+		
+		
+		
+		
+		
+	
+	})
+	
+	
+})
+
+</script>
+</head>
+<body>
+<div class="wrap">
+	<div>1</div>
+	<div>2</div>
+	<div>3</div>
+	<div>4</div>
+	<div>5</div>
+	<div>6</div>
+	<div>7</div>
+	<div>8</div>
+	<div>9</div>
+	<div>10</div>
+	<div>11</div>
+	<div>12</div>
+	<input type="button" value="开始" />
+</div>
+</body>
+</html>

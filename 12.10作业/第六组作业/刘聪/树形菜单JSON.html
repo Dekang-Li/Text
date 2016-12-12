@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <style>
+        #oUl li ul {
+            display: none;
+        }
+
+        #oUl li ul.show {
+            display: block;
+        }
+
+        #oUl li ul.hide {
+            display: none;
+        }
+
+        #oUl li h3 span {
+            padding: 0px 10px;
+        }
+
+        #oUl li h3.padL {
+            padding-left: 30px;
+        }
+
+        li {
+            list-style: none;
+        }
+    </style>
+    <script>
+
+        var arr = [
+            {
+                title: "第一级菜单",
+                child: [
+                    {title: "第二集菜单"},
+                    {
+                        title: "第二集菜单",
+                        child: [
+                            {title: "第三集菜单"},
+                            {
+                                title: "第三集菜单",
+                                child: [
+                                    {title: "第四集菜单"},
+                                    {title: "第四集菜单"},
+                                    {title: "第四集菜单"}
+                                ]
+                            },
+                            {title: "第三集菜单"}
+                        ]
+                    },
+                    {
+                        title: "第二集菜单",
+                        child: [
+                            {title: "第三集菜单"},
+                            {title: "第三集菜单"}
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "第一级菜单",
+                child: [
+                    {title: "第二集菜单"},
+                    {
+                        title: "第二集菜单",
+                        child: [
+                            {title: "第三集菜单"},
+                            {
+                                title: "第三集菜单",
+                                child: [
+                                    {title: "第四集菜单"},
+                                    {title: "第四集菜单"},
+                                    {title: "第四集菜单"}
+                                ]
+                            },
+                            {title: "第三集菜单"}
+                        ]
+                    },
+                    {
+                        title: "第二集菜单",
+                        child: [
+                            {title: "第三集菜单"},
+                            {title: "第三集菜单"}
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "第一集菜单",
+                child: [
+                    {title: "第二集菜单"},
+                    {title: "第二集菜单"}
+                ]
+            }
+        ];
+
+    </script>
+</head>
+
+<body>
+<ul id="oUl"></ul>
+<script src="jquery-3.1.1.js"></script>
+<script>
+
+    $('#oUl').html(creatHtml(arr));
+
+    function creatHtml(arr) {
+        var str = '';
+        for (var i = 0, len = arr.length; i < len; i++) {
+            str += '<li><h3>';
+            if (arr[i].child) {
+                str += '+' + arr[i].title + '</h3>';
+                str += '<ul>';
+                str += creatHtml(arr[i].child);
+                str += '</ul>';
+            } else {
+                str += arr[i].title + '</h3>';
+            }
+            str += '</li>';
+        }
+        return str;
+    }
+
+    $('h3').click(function () {
+        if ($(this).next()) {
+            if ($(this).next().css('display') === 'none') {
+                $('#oUl').find('ul').removeClass('show').addClass('hide');
+                toggleFn($(this).next());
+            } else {
+                $(this).next().removeClass('show').addClass('hide');
+            }
+        }
+    });
+
+    function toggleFn($ele) {
+        $ele.removeClass('hide').addClass('show');
+        if ($ele.parents()[1]) {
+            toggleFn($ele.parents().eq(1));
+        }
+    }
+
+</script>
+</body>
+</html>

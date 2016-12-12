@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body {
+				margin: 0;
+			}
+			
+			div {
+				width: 500px;
+				margin: 50px auto;
+			}
+			
+			ul ul {
+				display: none;
+			}
+			p {
+				cursor: pointer;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box"></div>
+	</body>
+	<script src="jquery-3.1.1.min.js"></script>
+	<script>
+		(function() {
+			var arr = [{
+				"name": "第一级菜单",
+				"child": [{
+					"name": "第二级菜单"
+				}, {
+					"name": "第二级菜单",
+					"child": [{
+						"name": "第三级菜单"
+					}, {
+						"name": "第三级菜单"
+					}, {
+						"name": "第三级菜单"
+					}, ]
+				}, {
+					"name": "第二级菜单"
+				}]
+			}, {
+				"name": "第一级菜单",
+				"child": [{
+					"name": "第二级菜单",
+					"child": [{
+						"name": "第三级菜单",
+					}, {
+						"name": "第三级菜单",
+					}, {
+						"name": "第三级菜单",
+						"child": [{
+							"name": "第四级菜单",
+							"child": [{
+								"name": "第五级菜单"
+							}, {
+								"name": "第五级菜单"
+							}, {
+								"name": "第五级菜单"
+							}, {
+								"name": "第五级菜单"
+							}]
+						}, {
+							"name": "第四级菜单"
+						}, {
+							"name": "第四级菜单"
+						}, {
+							"name": "第四级菜单"
+						}]
+					}]
+				}, {
+					"name": "第二级菜单",
+					"child": [{
+						"name": "第三级菜单",
+						"child": [{
+							"name": "第四级菜单"
+						}, {
+							"name": "第四级菜单"
+						}, {
+							"name": "第四级菜单"
+						}, {
+							"name": "第四级菜单"
+						}]
+					}, {
+						"name": "第三级菜单",
+						"child": [{
+							"name": "第四级菜单"
+						}, {
+							"name": "第四级菜单"
+						}, {
+							"name": "第四级菜单"
+						}, {
+							"name": "第四级菜单"
+						}]
+					}, {
+						"name": "第三级菜单",
+						"child": [{
+							"name": "第四级菜单"
+						}, {
+							"name": "第四级菜单"
+						}, {
+							"name": "第四级菜单"
+						}, {
+							"name": "第四级菜单"
+						}]
+					}]
+				}]
+			}, {
+				"name": "第一级菜单",
+			}]
+			var inner = "";
+			var isOff = true;
+			var $div = $("#box");
+			set(arr);
+			$div.html(inner);
+			function set(obj) {
+				inner += "<ul>"
+				for(var i = 0; i < obj.length; i++) {
+					inner += "<li>";
+					inner += "<p>" + obj[i].name + "</p>";
+					if(obj[i].child) {
+						set(obj[i].child);
+					}
+					inner += "</li>";
+				}
+				inner += "</ul>"
+			}
+			$("p").click(function(e) {
+				var $next = $(this).next();
+				var $parent = $(this).parent().parent().find("ul");
+				if($parent != $next) {
+					$parent.hide();
+				}
+				if($next && isOff) {
+					$next.show();
+				}else {
+					$next.hide();
+				}
+				isOff = !isOff;
+			})
+		})()
+	</script>
+
+</html>

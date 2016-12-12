@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			#div p+ul {
+				display: none;
+			}
+		</style>
+<script src="jquery-3.1.1.min.js"></script>
+<script>
+
+var arr = [
+{
+    title : "第一级菜单",
+    child : [
+    	{title:"第二集菜单"},
+        {title:"第二集菜单",
+        child:[
+        		{title:"第三集菜单"},
+        		{title:"第三集菜单",
+        		child:[
+        			{title:"第四集菜单"},
+        			{title:"第四集菜单"},
+        			{title:"第四集菜单"}
+        		]
+        		},
+        		{title:"第三集菜单"}
+        	]
+    	},
+        {
+        	title:"第二集菜单",
+        	child:[
+        		{title:"第三集菜单"},
+        		{title:"第三集菜单"}
+        	]
+        }
+    ]
+},
+{
+    title : "第一级菜单",
+    child : [
+    	{title:"第二集菜单"},
+        {title:"第二集菜单",
+        child:[
+        		{title:"第三集菜单"},
+        		{title:"第三集菜单",
+        		child:[
+        			{title:"第四集菜单"},
+        			{title:"第四集菜单"},
+        			{title:"第四集菜单"}
+        		]
+        		},
+        		{title:"第三集菜单"}
+        	]
+    	},
+        {
+        	title:"第二集菜单",
+        	child:[
+        		{title:"第三集菜单"},
+        		{title:"第三集菜单"}
+        	]
+        }
+    ]
+},
+{
+	title:"第一集菜单",
+	child:[
+		{title:"第二集菜单"},
+		{title:"第二集菜单"}
+	]
+},
+];
+
+
+</script>
+</head>
+<body>
+	<div id="div"></div>
+<script>
+	
+(function(){
+	var $div = $('#div');
+	var inner = '';
+	setChild(arr);
+	$div.html(inner);//往ul里边添加内容
+	var $ulParent = $('ul');
+	
+	var $p = $('p');
+	
+	$p.click(function(){
+		
+		var $next = $(this).next();
+		//console.log($next)
+		//var $ul = ev.target.closest('ul');
+		var $ul = $(this).parent().parent();
+		var $ulChild = $ul.find('ul');//找到的是所有的ul
+		//console.log($ulChild)
+		
+		
+		if($next.length != 0){
+			if($next.css('display') == 'block'){
+				$next.hide();
+			}else{
+				for(var i = 0; i < $ulChild.length; i++){
+					if($ulChild.eq(i) != $next){
+						$ulChild.eq(i).hide();
+					} 
+				}
+				$next.show();
+			}
+//			if($next[0].style.display == 'block'){
+//				$next[0].style.display = 'none';
+//			} else {
+//				$next[0].style.display = 'block';
+//			}
+		
+		}
+		
+	})
+
+	//结构生成
+	function setChild(obj){
+		inner += '<ul>';
+		for( var i = 0; i < obj.length; i++){
+			inner += '<li>';
+			inner += '<p>'+obj[i].title+'</p>'
+			if(obj[i].child){
+				setChild(obj[i].child);
+			}
+			inner += '</li>';
+		}
+		inner += '</ul>';
+	}
+	//第二种方法
+	//$('#div>ul>li>p').attr('class', 'one');
+	
+	
+})();
+//第二种方法
+//$(function(){
+//	$('p').click(function(){
+//		if ($(this).attr('class') == 'one') {
+//			$('#div>ul li ul').hide();
+//		}
+//		$(this).next('ul').toggle();
+//	});
+//});
+</script>	
+</body>
+</html>

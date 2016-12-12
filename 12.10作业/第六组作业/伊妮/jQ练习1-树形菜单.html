@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<style>
+body ul ul{
+    display:none
+}
+</style>
+<script src="jquery-3.1.1.min.js"></script>
+    </head>
+    <body>
+    </body>
+    <script>
+
+        (function(){
+             var data=[
+                    {
+                        "name":"第一级菜单",
+                        "child":[
+                            {"name":"第二级菜单"},
+                            {
+                                "name":"第二级菜单",
+                                "child":[
+                                        {"name":"第三级菜单"},
+                                        {"name":"第三级菜单"},
+                                        {"name":"第三级菜单"},
+                                ]
+                            },
+                            {"name":"第二级菜单"}
+                        ]
+                    },
+                    {
+                        "name":"第一级菜单",
+                        "child":[
+                                {
+                                    "name":"第二级菜单",
+                                    "child":[
+                                            {
+                                              "name":"第三级菜单",
+                                            },
+                                             {
+                                              "name":"第三级菜单",
+                                            },
+                                             {
+                                              "name":"第三级菜单",
+                                              "child":[
+                                                    {
+                                                        "name":"第四级菜单",
+                                                        "child":[
+                                                                {"name":"第五级菜单"},
+                                                                {"name":"第五级菜单"},
+                                                                {"name":"第五级菜单"},
+                                                                {"name":"第五级菜单"}
+                                                          ]
+                                                    },
+                                                    {"name":"第四级菜单"},
+                                                    {"name":"第四级菜单"},
+                                                    {"name":"第四级菜单"}
+                                              ]
+                                            }
+                                    ]
+                                },
+                                {
+                                    "name":"第二级菜单",
+                                    "child":[
+                                            {
+                                              "name":"第三级菜单",
+                                              "child":[
+                                                    {"name":"第四级菜单"},
+                                                    {"name":"第四级菜单"},
+                                                    {"name":"第四级菜单"},
+                                                    {"name":"第四级菜单"}
+                                              ]
+                                            },
+                                             {
+                                              "name":"第三级菜单",
+                                              "child":[
+                                                    {"name":"第四级菜单"},
+                                                    {"name":"第四级菜单"},
+                                                    {"name":"第四级菜单"},
+                                                    {"name":"第四级菜单"}
+                                              ]
+                                            },
+                                             {
+                                              "name":"第三级菜单",
+                                              "child":[
+                                                    {"name":"第四级菜单"},
+                                                    {"name":"第四级菜单"},
+                                                    {"name":"第四级菜单"},
+                                                    {"name":"第四级菜单"}
+                                              ]
+                                            }
+                                    ]
+                                }
+                        ]
+                    },
+                    {
+                        "name":"第一级菜单",
+                    }
+                ]
+            var inner="";
+            setchild(data);
+            document.body.innerHTML=inner;
+            function setchild(obj){
+                inner+="<ul>"
+                for(var i=0; i<obj.length; i++){
+                    inner+="<li>";
+                    inner+="<h3>"+obj[i].name+"</h3>";
+                    if(obj[i].child){
+
+                        setchild(obj[i].child);
+                    }
+                    inner+="</li>";
+
+                }
+                inner+="</ul>"
+            }
+            $("h3").click(function(e){
+                var next=$(this).next();
+                var parent=$(this).parent().parent().find("ul");
+                console.log(parent)
+                if(parent!=next){
+                    parent.css({
+                        display:"none"
+                    })
+                }
+                if(next){
+                    next.css({
+                        display:"block"
+                    })
+                }
+            })
+        })()
+    </script>
+</html>

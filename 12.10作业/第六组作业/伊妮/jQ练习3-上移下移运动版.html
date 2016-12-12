@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            ul{
+                position: relative;
+            }
+            li{
+                padding: 10px;
+                /*transition:.5s top;*/
+            }
+        </style>
+        <script src="jquery-3.1.1.min.js"></script>
+    </head>
+    <body>
+    <ul id="oUl">
+            <li>
+                <span>啦啦啦啦 1</span>
+                <input type="button" value="上移" class="pre">
+                <input type="button" value="下移" class="next">
+            </li>
+            <li>
+                <span>哈哈哈哈 2</span>
+                <input type="button" value="上移" class="pre">
+                <input type="button" value="下移" class="next">
+            </li>
+            <li>
+                <span>嘿嘿额和 3</span>
+                <input type="button" value="上移" class="pre">
+                <input type="button" value="下移" class="next">
+            </li>
+            <li>
+                <span>呱呱呱呱 4</span>
+                <input type="button" value="上移" class="pre">
+                <input type="button" value="下移" class="next">
+            </li>
+            <li>
+                <span>哥哥哥哥 5</span>
+                <input type="button" value="上移" class="pre">
+                <input type="button" value="下移" class="next">
+            </li>
+    </ul>
+    </body>
+        <script>
+
+
+        ///////怎么去合并代码呢？
+            (function(){
+                var arr=[];
+                $("li").each(function(i,e){
+                    arr[i]={
+                        left:$(e).offset().left,
+                        top:$(e).offset().top,
+                    };
+                    $(e).css({
+                        left:$(e).offset().left,
+                        top:$(e).offset().top
+                    });
+                    $(e).attr("index",i);
+                });
+                $("li").css("position","absolute");
+                $(".next").click(function(){
+                    var _this=$(this);     //为什么要存一下this
+                    if($(this).parent().next().length){   //length????
+                        var index=$(this).parent().attr("index");
+                        var Nindex=$(this).parent().next().attr("index");
+                        $(this).parent().animate({
+                            top:arr[Nindex].top
+                        },function(){
+                            _this.parent().insertAfter(_this.parent().next())
+                        });
+                        $(this).parent().next().animate({
+                            top:arr[index].top
+                        });
+                        $(this).parent().attr("index",Nindex)
+                        $(this).parent().next().attr("index",index)
+                    }else{
+                        $("#oUl").prepend(_this.parent());
+                        $("li").each(function(i,e){
+                            $(e).attr("index",i);
+                            $(e).animate({
+                                top:arr[i].top
+                            })
+                        })
+                    };
+                });
+                $(".pre").click(function(){
+                    var _this=$(this);
+                    if($(this).parent().prev().length){
+                        var index=$(this).parent().attr("index");
+                        var Nindex=$(this).parent().prev().attr("index");
+                        $(this).parent().animate({
+                            top:arr[Nindex].top
+                        },function(){
+                            _this.parent().insertBefore(_this.parent().prev());
+                        });
+                        $(this).parent().prev().animate({
+                            top:arr[index].top
+                        });
+                        $(this).parent().attr("index",Nindex)
+                        $(this).parent().prev().attr("index",index)
+                    }else{
+                        $("#oUl").append(_this.parent());
+                        $("li").each(function(i,e){
+                            $(e).attr("index",i);
+                            $(e).animate({
+                                top:arr[i].top
+                            })
+                        })
+                    }
+                })
+
+
+
+            })()
+        </script>
+</html>

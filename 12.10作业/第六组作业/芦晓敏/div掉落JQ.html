@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+<style>
+	.box {
+		font: 50px/100px "宋体";
+		color: #fff;
+		text-align: center;
+	}
+</style>
+</head>
+<body>
+<!--<div id="box" style="width:100px;height:100px;position: absolute;left:0;top:0;background:red;">1</div>-->
+<section id="wrap"></section>
+<script src="jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="miaov.js"></script>
+<script>
+	var str = '';
+	var $wrap = $('#wrap');
+	for(var i = 0; i < 10; i++){
+		str += '<div class="box" style="width:100px;height:100px;float:left;position: absolute;left:'+i*110+'px;top:0;background:red;">'+i+'</div>';
+	}
+	$wrap.html(str);
+	$div = $('div');
+	//申明两个变量
+	var num = 0;
+	var nub = 0;
+	var timer = null;
+
+	$div.click(function(){
+		num = $(this).text();//获取当前点击的是第几个div  双线程问题  定义两个变量
+		nub = $(this).text();
+		//console.log(num,nub)
+		clearInterval(timer);
+		timer = setInterval(function(){
+			if(num < $div.length){
+				mTween($div[num],{top:200},300,'linear');
+				num++;
+			}
+			
+			if(nub >= 0){
+				mTween($div[nub],{top:200},300,'linear');
+				nub--;
+			}
+			
+			if(num == $div.length && nub == 0){
+				clearInterval(timer);
+			}
+		
+		},300);
+	});
+	
+</script>
+</body>
+</html>

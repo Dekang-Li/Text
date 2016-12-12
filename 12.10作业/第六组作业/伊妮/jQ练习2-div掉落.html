@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+        section{
+            width:1100px;
+            margin:30px auto;
+        }
+        #wrap{
+            width:1100px;
+
+
+        }
+        #wrap span{
+           float:left;
+           width:100px;
+           height:100px;
+           background:blue;
+           margin-right:10px;
+           font:30px/100px "宋体";
+           text-align: center;
+           transition: 1s;
+        }
+        </style>
+
+    </head>
+    <body>
+    <section>
+        <div id="wrap">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+        <span>7</span>
+        <span>8</span>
+        <span>9</span>
+        <span>10</span>
+    </div>
+    </section>
+    </body>
+    <script src="jquery-3.1.1.min.js"></script>
+    <script>
+    (function(){
+        $("span").each(function(i,e){
+            $(e).css({
+                left:$(e).offset().left,
+                top:$(e).offset().top,
+                margin:0
+            })
+        });
+        $("span").click(function(){
+            set($(this));
+        });
+
+        $("span").css("position","absolute");
+        function set(obj){
+            obj.css("top","400px");
+            setTimeout(function(){
+                var next=obj.next();
+                var prev=obj.prev();
+                if(next){
+                    set(next);
+                }
+                if(prev){
+                    set(prev);
+                }
+            }, 400);
+        }
+    })()
+    </script>
+</html>

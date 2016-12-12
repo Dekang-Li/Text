@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				font-family: "微软雅黑";
+				color: #333;
+			}
+			#form{
+				text-align: center;
+				
+			}
+			#txt{width: 486px;margin:5px auto;text-align: left;}
+			#txt span{																
+				display: inline-block;
+				font-family: "微软雅黑";
+				font-size: 14px;
+				color: #333;
+			}
+			#txt span:nth-of-type(1){
+				width:156px;
+				height:20px;
+			}
+			#txt span:nth-of-type(2){
+				width:120px;
+				height:20px;
+			}
+		    #box{
+		    	margin: 120px auto;
+		    	width: 600px;
+		    }
+			.c1{
+				background: skyblue;
+			}
+			.c2{
+				background: #fff;
+			}
+			.c3{
+				background: #00BFFF;
+			}
+			.c4{
+				background: #00BFFF;
+				color: #fff;
+			}
+			.c5{
+				background:pink;
+				color: #fff;
+			}
+			table {
+				border: 1px solid #000;
+				border-right:0;
+				border-bottom: none;
+			}
+			table thead th,table tbody td{
+				text-align: center;
+				line-height:25px;
+				border-right:1px solid #000;
+			}
+			table thead th,table tbody td{
+				border-bottom: 1px solid #000;
+			}
+			.sortmode{
+				width: 100px;
+				height: 25px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div id="top">
+				<div id="txt">
+				    <span>请输入姓名</span>
+				    <span>请选择性别</span>
+				    <span>请输入年龄</span>
+				</div>
+				<div id="form">
+				<form id="form1">
+				    <input type="text" name="username" placeholder="姓名" />
+				    <select name="sex">
+				        <!--<option value="">请选择一个性别</option>-->
+				        <option value="男">男</option>
+				        <option value="女">女</option>
+				    </select>
+				    <input type="text" name="age" placeholder="年龄"/>
+				    <input type="button" name="btn" value="提交">
+				</form>
+				<p>
+				    <form id="form2">
+				    	<span>请选择编号：</span>
+				        <select name="orderName" class="sortmode">
+				            <option value="id" >编号</option>
+				            <option value="age">年龄</option>
+				        </select>
+				        <span>请选择排序方式：</span>
+				        <select name="orderBy" class="sortmode">
+				            <option value="asc">升序</option>
+				            <option value="desc">降序</option>
+				        </select>
+				        <input type="button" name="orderButton" value="排序">
+				      <input type="button" value="批量删除">  
+				    </form>
+				</p>
+				</div>
+			</div>
+			<table width="100%" id="tab1" border="0" cellspacing="0" >
+			    <thead>
+				    <tr>
+				        <th>全选 <input type="checkbox" id="checkAll"></th>
+				        <th>编号</th>
+				        <th>姓名</th>
+				        <th>性别</th>
+				        <th>年龄</th>
+				        <th>操作</th>
+				    </tr>
+			    </thead>
+			    <tbody id="tbody">
+			    	<!--<tr>
+			    		<td><input type="checkbox" id="checkAll"></td>
+			    		<td>${{1}}</td>
+			    		<td>${{大红}}</td>
+			    		<td>${{女}}</td>
+			    		<td>${{23}}</td>
+			    		<td>
+			    			<input type="button" value="上移"/>
+			    			<input type="button" value="下移" />
+			    			<input type="button" value="删除"/>
+			    		</td>
+			    	</tr>-->
+			    </tbody>
+			</table>
+		</div>
+	</body>
+<script src="jquery-3.1.1.js"></script>
+<script>
+$(function(){
+	 var data = [
+        {
+             'id' : 1,
+            'username' : 'LEO',
+            'age' : 36,
+            'sex' : '男'
+        },
+        {
+            'id' : 2,
+            'username' : 'MOMO',
+            'age' : 16,
+            'sex' : '男'
+        },
+        {
+            'id' : 3,
+            'username' : 'DUODUO',
+            'age' : 29,
+            'sex' : '男'
+        },
+        {
+            'id' : 4,
+            'username' : '勇升',
+            'age' : 46,
+            'sex' : '男'
+        },
+        {
+            'id' : 5,
+            'username' : '小美',
+            'age' : 40,
+            'sex' : '女'
+        }
+    ];
+    
+    var num = 0;//记录编号
+    var n = 0;//实时记录当前有几个tr
+    
+    
+   
+    //dom生成页面结构
+    function draw(obj,id,username,age,sex) {
+    	var tr = $('<tr>');
+    	var td1 = $('<td><input type="checkbox" id="checkAll"></td>');
+    	var td2 = $('<td>'+ id +'</td>');
+    	var td3 = $('<td>'+ username +'</td>');
+    	var td4 = $('<td>'+ sex +'</td>');
+    	var td5 = $('<td>'+ age +'</td>');
+    	var td6 = $('<td><input type="button" value="上移"/><input type="button" value="下移" /><input type="button" value="删除"/></td>')
+    	
+    	tr.append(td1);
+    	tr.append(td2);
+    	tr.append(td3);
+    	tr.append(td4);
+    	tr.append(td5);
+    	tr.append(td6);
+    	//上移
+    	td6.children().eq(0).click(function () {
+    		var nowIndex = $(this).index('[value="上移"]');
+    		if ( nowIndex == 0 ) {
+    			$('#tbody').append(tr);
+    		} else {
+    			var prev = tr.prev();
+    			prev.before(tr);
+    		}
+    		check();
+    	})
+    	//下移
+    	td6.children().eq(1).click(function () {
+    		var nowIndex = $(this).index('[value="下移"]');
+    		if ( nowIndex == n - 1 ) {//坑
+    			$('#tbody').prepend(tr);
+    		} else {
+    			var next = tr.next();
+    			next.after(tr);
+    		}
+    		check();
+    	});
+    	//删除
+    	td6.children().eq(2).click(function () {
+    		tr.remove();
+    		var trs = $('#tbody tr');
+    		console.log(trs);
+			trs.each(function (i,e) {
+				$(e).attr('class','c'+ (i%2+1) +'');
+			});
+			n = trs.length;
+			check();
+    	})
+    	//选框
+    	td1.children().eq(0).click(function () {
+    		var nowIndex = $(this).index('[type="checkbox"]') - 1; 
+    		var isChecked = true;
+    		
+    		if ( $(this).prop('checked') ) {
+    			tr.attr('class','c3');
+    		} else {
+    			tr.attr('class','c'+ (nowIndex%2+1) +'');
+    		}
+    		var $checks = $('#tbody').find('[type="checkbox"]');
+    		var $check = $('#checkAll');
+    	
+    		$checks.each(function (i,e) {
+    			if ( !$(e).prop('checked') ) {
+    				isChecked = false;
+    			}
+    		});
+    		$check.prop('checked',isChecked);
+    		
+    		if ( isChecked ) {
+    			$checks.parents('tr').attr('class','c5');
+    		} 
+    		if ( !isChecked ) {
+    			$checks.each(function (i,e) {
+    				if ( $(e).prop('checked') ) {
+    					$(e).parents('tr').attr('class','c3');
+    				} else {
+    					$(e).parents('tr').attr('class','c'+ (i%2+1) +'');
+    				}
+    			})
+    		}
+    		
+    		
+    	});
+    	
+    	
+    	obj.append(tr);
+    }
+    
+    //初始化页面
+    drowCon();
+    function drowCon() {
+		for ( var i = 0; i < data.length; i++ ) {
+			draw($('#tbody'),data[i].id,data[i].username,data[i].age,data[i].sex);
+		}
+		
+		var tr = $('#tbody tr');
+		tr.each(function (i,e) {
+			$(e).attr('class','c'+ (i%2+1) +'');
+		});
+		
+		num = tr.length;
+		n = tr.length;
+		choose();
+		allDel();
+		sort();
+    }
+    
+    //点击提交按钮  生成新的结构
+    newCon();
+    function newCon() {
+    	var reO = /^((0?[1-9])|([1-9][1-9])|(1[0-1][0-9])|120)$/;//匹配年龄不能超过120岁
+    	var $username = $('#form1').find('[name="username"]');
+    	var $age = $('#form1').find('[name="age"]');
+    	var $btn = $('#form1').find('[name="btn"]');
+    	var $sex = $('#form1').find('[name="sex"]');
+    	$btn.click(function () {
+    		if ( $username.val() == '' || $age.val() == '' ) {
+    			alert('请输入完整信息');
+    		} else if ( !reO.test($age.val()) ) {
+    			alert('请输入正确年龄');
+    		} else {
+    			num++;
+				draw($('#tbody'),num,$username.val(),$age.val(),$sex.val())
+			    var tr = $('#tbody tr').last();
+			    var inde = tr.index('#tbody tr');
+			    n = $('#tbody tr').length;
+			    tr.attr('class','c'+ (inde%2+1) +'');
+				
+    		}
+    		choose();
+    		allDel();
+    		//由于生成新的结构 所以全选取消 前面class需要重置
+    		var tr = $('#tbody tr');
+	    	var $checks = $('#tbody').find('[type="checkbox"]');
+	    	var $check = $('#checkAll');
+	    	$check.prop('checked',false);
+			tr.each(function (i,e) {
+				if ( $checks.eq(i).prop('checked') ) {
+					$(this).attr('class','c3');
+				} else {
+					$(this).attr('class','c'+ (i%2+1) +'');
+				}
+			});	 
+    		
+    	});
+    }
+    
+    //点击排序  
+    function sort() {
+    	var $ordername = $('#form2').find('[name="orderName"]');
+    	var $orderby = $('#form2').find('[name="orderBy"]');
+    	var $orderbtn = $('#form2').find('[name="orderButton"]');
+    	
+    	$orderbtn.click(function () {
+    		var tr = $('#tbody tr');
+    		
+    		if ( $ordername.val() == 'id' ) {
+    			if ( $orderby.val() == 'asc' ) {
+    				tr.sort(function (a,b) {
+    					return a.children[1].innerHTML - b.children[1].innerHTML;
+    				})
+    			} else {
+    				tr.sort(function (a,b) {
+    					return b.children[1].innerHTML - a.children[1].innerHTML;
+    				})
+    			}
+    			$('#tbody').append(tr);
+    		}
+    		if ( $ordername.val() == 'age' ) {
+    			if ( $orderby.val() == 'desc' ) {
+    				tr.sort(function (a,b) {
+    					return b.children[4].innerHTML - a.children[4].innerHTML;
+    				})
+    			} else {
+    				tr.sort(function (a,b) {
+    					return a.children[4].innerHTML - b.children[4].innerHTML;
+    				})
+    			}
+    			$('#tbody').append(tr);
+    		}
+    		check();
+    	});
+    	
+    }
+
+    //点击全选标签
+    function choose() {
+    	var $check = $('#checkAll');
+    	var $checks = $('#tbody').find('[type="checkbox"]');
+    	$check.click(function () {
+    		if ( $(this).prop('checked') ) {
+    			$checks.prop('checked',true);
+    			$checks.parents('tr').attr('class','c5');
+    		} else {
+    			$checks.prop('checked',false);
+    			var tr = $('#tbody tr');
+				tr.each(function (i,e) {
+					$(e).attr('class','c'+ (i%2+1) +'');
+				});
+    		}
+    	});
+    	
+    }
+    //点击批量删除
+    function allDel() {
+    	var dele = $('#form2').children().last();
+    	var $checks = $('#tbody').find('[type="checkbox"]');
+    	dele.click(function () {
+    		for ( var i = 0;  i < $checks.length; i++ ) {
+    			if ( $checks.eq(i).prop('checked') ) {
+    				$checks.eq(i).parents('tr').remove();
+    			}
+    		}
+    		var tr = $('#tbody tr');
+			tr.each(function (i,e) {
+				$(e).attr('class','c'+ (i%2+1) +'');
+			});
+			choose();
+    	})
+    }
+    
+    //判断当前tr的class
+    function check() {
+    	var tr = $('#tbody tr');
+    	var $checks = $('#tbody').find('[type="checkbox"]');
+    	var $check = $('#checkAll');
+		tr.each(function (i,e) {
+			if ( $checks.eq(i).prop('checked') ) {
+				$(this).attr('class','c3');
+			} else {
+				$(this).attr('class','c'+ (i%2+1) +'');
+			}
+			if ( $check.prop('checked') ) {
+				$(this).attr('class','c5');
+			}
+		});	
+    }
+    
+}) 
+</script>
+</html>

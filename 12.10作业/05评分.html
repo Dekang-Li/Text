@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<style>
+			#wrap {
+				width: 300px;
+				margin: 100px auto;
+			}
+			
+			#wrap span {
+				font: 30px/50px "微软雅黑";
+			}
+			
+			.yellow {
+				color: yellow;
+			}
+			
+			.gray {
+				color: gray;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="wrap">
+			<span>★</span>
+			<span>★</span>
+			<span>★</span>
+			<span>★</span>
+			<span>★</span>
+		</div>
+	</body>
+	<script src="jquery-3.1.1.min.js"></script>
+	<script>
+		(function() {
+			var $index = -1;
+			$("span").hover(function(event) {
+				set($(this).index());
+				},
+				function() {
+					$("span").each(function(i, e) {
+						if($index < 0) {
+							$("span")[i].className = "";
+						}
+					})
+					if($index >= 0) {
+						set($index);
+					}
+				}
+			);
+			$("span").click(function(i, e) {
+				$index = $(this).index();
+			})
+
+			function set(nub) {
+				$("span").each(function(i, e) {
+					$(e).removeClass();
+				})
+				for(var i = 0; i <= nub; i++) {
+					if(nub < 2) {
+						$("span")[i].className = "gray";
+					} else {
+						$("span")[i].className = "yellow";
+					}
+				}
+			}
+
+		})()
+	</script>
+
+</html>

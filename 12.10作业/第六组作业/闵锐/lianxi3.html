@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+	.clearfix {
+		zoom: 1;
+	}
+	.clearfix:after {
+		content: "";
+		display: block;
+		clear: both;	
+	}
+	#wrap {
+		margin: 20px auto;
+		width: 666px;	
+	}
+	p {
+		float: left;
+		padding-left: 5px;
+		font: bold 18px/28px "宋体";
+		background: url(img/1.gif) no-repeat 0 6px;
+	}
+	#nav{
+		float: left;	
+	}
+	a {
+		float: left;
+		padding: 20px 3px 0;	
+	}
+	span {
+		float: left;
+		padding: 16px 0 0 6px;	
+		font: bold 16px/28px "宋体";
+		color: #ef7300;
+		display: none;
+	}
+	#ts {
+		float: left;
+		padding: 6px 0 0 6px;	
+	}
+</style>
+<script src="jquery-3.1.1.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="wrap" class="clearfix">
+    	<p id="p">总体评价:</p>
+        <div id="nav"> 
+            <a href="#"><img src="img/2.gif" id="img"/></a>
+            <a href="#"><img src="img/2.gif" id="img"/></a>
+            <a href="#"><img src="img/2.gif" id="img"/></a>
+            <a href="#"><img src="img/2.gif" id="img"/></a>
+            <a href="#"><img src="img/2.gif" id="img"/></a>
+        </div>
+        <span></span>
+        <img src="img/5.gif" id="ts"/>
+    </div>
+    <script>
+	(function(){
+		//JQ怎么创建使用数组
+		var text = ["很差","较差","还行","推荐","力荐"];
+		var arr = ["img/2.gif","img/3.gif","img/4.gif"];
+		var n = -1;
+		$('a').on('mouseover',function(){
+			var index = $(this).index('a');
+			$('span').css('display','block').html(text[index]);
+			$('#ts').css('display','none');
+			$('a').each(function(i,e){
+				if(i<=index){
+					$('img').eq(i).attr('src',arr[2]);
+				}else{
+					$('img').eq(i).attr('src',arr[0]);	
+				}
+			});
+			if(index<2){
+				for(var i = 0;i<=index;i++){
+					$('img').eq(i).attr('src',arr[1]);	
+				}
+			}
+		})
+		$('a').on('click',function(){
+			n = $(this).index('a');
+		});
+		$('a').on('mouseout',function(){
+			$('a').each(function(i,e){
+				if(i<=n){
+					$('img').eq(i).attr('src',arr[2]);
+				}else{
+					$('img').eq(i).attr('src',arr[0]);	
+				}
+			});
+			if(n<2){
+				for(var i = 0;i<=n;i++){
+					$('img').eq(i).attr('src',arr[1]);	
+				}
+			}
+			if(n<0){
+				$('span').css('display','none');
+				$('#ts').css('display','block');	
+			}
+		});	
+	})();
+    </script>
+</body>
+</html>

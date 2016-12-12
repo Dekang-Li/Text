@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+<style>
+	body {
+		margin: 0;
+		width: 200px;
+	}
+	div {
+		width: 28px;
+		height: 28px;
+		background: pink;
+		margin: 5px;
+		float: left;
+		border: 1px solid #fff;
+	}
+	.hide {
+		background: #fff;
+	}
+	.btn {
+		width: 30px;
+		height: 30px;
+		margin: 5px;
+		display:block;
+		float: left;
+		background:#000;
+		font-size:14px;
+		line-height:30px;
+		color:#fff;
+	}
+	.show {
+		font-size:12px;
+		line-height:14px;
+		color:#fff;
+		word-break:break-all;
+		text-align: center;
+	}
+</style>
+</head>
+<body>
+<!--
+   1  2  3  4  5
+   6  7  8  9 10 
+   11 12 13 14 15
+   16 17 18 19 20
+   21 22 23 24 25
+	
+	[1,2,3,4,5,10,15,20,25,24,23,22,21,16,11,6]
+	[1,2,3,4,5,6,11,21,22,23,24,25,20,15,10,5]
+-->
+<script src="jquery-1.11.1.js"></script>
+<script>
+$(function(){
+	//生成结构
+	function Tab(){
+		var arr= ['一等奖','二等奖','三等奖','四等奖','谢谢惠顾'];
+		for(var i = 1; i < 6; i++){
+			for(var j = 1; j < 6; j++){
+				if(i == 1 || i == 5){
+					str += '<div class="show">'+arr[j%5]+'</div>';
+				} else {
+					if(j == 1 || j == 5){
+						str += '<div class="show">'+arr[j%5]+'</div>';
+					} else if( j == 3 && i == 3){//中间的那个
+						str += '<span class="btn">点击</span>';
+					} else {
+						str += '<div class="hide"></div>';
+					}
+				}
+			}
+		}
+	}
+	var str = '';
+	Tab();
+	$('body').html(str);
+	
+	//点击按钮之后抽奖
+	var speed = 40;//速度
+	var num = 0;//数值
+	$('.btn').click(function(){
+		random = Math.floor(Math.random()*150 + 100);
+		change();
+	});
+	//$('div').eq(12).css("border","1px solid red");
+	//封装函数
+	function change(){
+		var iArr = [0,1,2,3,4,9,13,18,23,22,21,20,19,14,10,5]; //结构生成的时候 中间的点击按钮是span标签，计算索引的时候需要减去1那一行   坑坑
+		
+		$('div').css('border','1px solid #fff');
+		$('div').eq(iArr[num%iArr.length]).css("border","1px solid red");//num%Index.length
+		speed +=5;
+		if(speed < random){
+			setTimeout(change,speed);
+		} else {
+			speed = 40;
+		}
+		num++;
+	}
+});
+</script>
+</body>
+</html>

@@ -56,7 +56,7 @@
              #wrap .active {
             	background: red;
             }
-            
+
         </style>
     </head>
     <body>
@@ -81,13 +81,16 @@
     		$div.each(function(i,e) {
     			$(e).html(i+1);
     		});
-    		
     		$(document).click(function() {
     			time = Math.round(Math.random()*(200) + 100);
-    			timer1 = setInterval(function() {
-    				time+=20;
-    				return time;
-    			},20);
+    			// timer1 = setInterval(function() {
+    			// 	time+=20;
+    			// 	return time;
+    			// },20);
+                set(time);
+                setTimeout(function() {
+                    clearInterval(timer);
+                },5000);
     		});
     		function set(seconds) {      //旋转速度
     			timer = setInterval(function() {

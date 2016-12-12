@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            body {
+                margin: 0;
+            }
+            #wrap {
+            	position: relative;
+            	width: 180px;
+            	height: 180px;
+            	margin: 50px auto;
+            }
+            #wrap div {
+            	position: absolute;
+                width: 58px;
+                height: 58px;
+                border: 1px solid black;
+                background: #ccc;
+                font: 30px/58px "微软雅黑";
+                text-align: center;
+            }
+            #wrap div:nth-of-type(1) {
+            	left: 0px;
+            	top: 0;
+            }
+            #wrap div:nth-of-type(2) {
+            	left: 60px;
+            	top: 0;
+            }
+            #wrap div:nth-of-type(3) {
+            	left: 120px;
+            	top: 0;
+            }
+            #wrap div:nth-of-type(4) {
+            	left: 120px;
+            	top: 60px;
+            }
+            #wrap div:nth-of-type(5) {
+            	left: 120px;
+            	top: 120px;
+            }
+            #wrap div:nth-of-type(6) {
+            	left: 60px;
+            	top: 120px;
+            }
+            #wrap div:nth-of-type(7) {
+            	left: 0;
+            	top: 120px;
+            }
+            #wrap div:nth-of-type(8) {
+            	left: 0;
+            	top: 60px;
+            }
+             #wrap .active {
+            	background: red;
+            }
+
+        </style>
+    </head>
+    <body>
+     <div id="wrap">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+     </div>
+    </body>
+    <script src="../../jquery-3.1.1.js"></script>
+    <script>
+    	(function() {
+    		var nub = 0;
+    		var timer1 = 0;
+    		var time = 0;
+    		var $div = $("#wrap div");
+    		$div.each(function(i,e) {
+    			$(e).html(i+1);
+    		});
+    		$(document).click(function() {
+    			time = Math.round(Math.random()*(200) + 100);
+    			// timer1 = setInterval(function() {
+    			// 	time+=20;
+    			// 	return time;
+    			// },20);
+                set(time);
+                setTimeout(function() {
+                    clearInterval(timer);
+                },5000);
+    		});
+    		function set(seconds) {      //旋转速度
+    			timer = setInterval(function() {
+    				$div.eq(nub).addClass("active").siblings("div").removeClass("active");
+    				if(nub >= $div.length) {
+    					nub = -1;
+    				}
+    				nub++;
+    			},seconds)
+    		}
+    	})();
+    </script>
+</html>

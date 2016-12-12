@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script src="jquery-3.1.1.js"></script>
+<style>
+	#oUl li ul{
+		display: none;
+	}
+	#oUl li ul.show{
+		display: block;
+	}
+	#oUl li ul.hide{
+		display: none;
+	}
+	#oUl li h3 span{
+		padding: 0px 10px;
+	}
+	#oUl li h3.padL{
+		padding-left: 30px;
+	}
+	li{
+		list-style: none;
+	}
+</style>
+<script>
+var arr = [
+	{
+	    title : "第一级菜单",
+	    child : [
+	    	{title:"第二集菜单"},
+	        {title:"第二集菜单",
+	        child:[
+	        		{title:"第三集菜单"},
+	        		{title:"第三集菜单",
+	        		child:[
+	        			{title:"第四集菜单"},
+	        			{title:"第四集菜单"},
+	        			{title:"第四集菜单"}
+	        		]
+	        		},
+	        		{title:"第三集菜单"}
+	        	]
+	    	},
+	        {
+	        	title:"第二集菜单",
+	        	child:[
+	        		{title:"第三集菜单"},
+	        		{title:"第三集菜单"}
+	        	]
+	        }
+	    ]
+	},
+	{
+	    title : "第一级菜单",
+	    child : [
+	    	{title:"第二集菜单"},
+	        {title:"第二集菜单",
+	        child:[
+	        		{title:"第三集菜单"},
+	        		{title:"第三集菜单",
+	        		child:[
+	        			{title:"第四集菜单"},
+	        			{title:"第四集菜单"},
+	        			{title:"第四集菜单"}
+	        		]
+	        		},
+	        		{title:"第三集菜单"}
+	        	]
+	    	},
+	        {
+	        	title:"第二集菜单",
+	        	child:[
+	        		{title:"第三集菜单"},
+	        		{title:"第三集菜单"}
+	        	]
+	        }
+	    ]
+	},
+	{
+		title:"第一集菜单",
+		child:[
+			{title:"第二集菜单"},
+			{title:"第二集菜单"}
+		]
+	},
+];
+$(function () {
+	var $wrap = $('#wrap');
+//	var str = createHTML(arr);
+//	function createHTML(arr) {
+//		var str = '<ul>';
+//		for ( var i = 0; i < arr.length; i++ ) {
+//			str += '<li><h3>'+ arr[i].title +'</h3>';
+//			if ( arr[i].child ) {
+//				str += createHTML(arr[i].child);
+//			}
+//			str += '</li>';
+//		}
+//		str += '</ul>';
+//		return str;
+//	}
+	function createHTML(arr) {
+		var $ul = $('<ul>');
+		for ( var i = 0; i < arr.length; i++ ) {
+			var $li = $('<li><h3>'+ arr[i].title +'</h3></li>');
+			if ( arr[i].child ) {
+				var $con = createHTML(arr[i].child);
+				$li.append($con);
+			}
+			$ul.append($li);
+		}
+		return $ul;
+	}
+
+	$wrap.append(createHTML(arr));
+
+	var $ul = $('ul').eq(0);
+	
+	$ul.attr('id','oUl');
+	
+	$('h3').click(function (ev) {
+		var tar = $(this);
+		if ( tar.next().length ) {//用length 或者转成原声对象来判断
+			if ( tar.next().css('display') == 'none' ) {
+				var par = tar.next().parent().parent();
+				var l = par.find('ul');
+				for ( var i = 0; i < l.length; i++ ) {
+//					if ( l != tar.next() ) {  //要转成原声对象来进行比较
+					l.eq(i).attr('class','none');	
+//					}
+				}
+				tar.next().attr('class','show');
+			} else {
+				tar.next().parent().find('ul').attr('class','hide');
+			}
+		}
+	})
+	
+	
+	
+});
+</script>
+</head>
+<body>
+<div id="wrap"></div>
+</body>
+</html>

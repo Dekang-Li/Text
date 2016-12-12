@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style type="text/css">
+            body,
+            p {
+                margin: 0px;
+            }
+            ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+            input {
+                margin: 0;
+                padding: 0;
+                outline: none;
+            }
+            .wrap {
+                width: 500px;
+                padding: 20px;
+                margin: 0 auto;
+            }
+            .wrap .p {
+                width: 500px;
+                font: 40px/60px "宋体";
+                text-align: center;
+            }
+            .wrap #ul {
+                border-top: 1px solid black;
+                border-bottom: 1px solid black;
+                min-height: 160px;
+                max-height: 280px;
+                overflow: auto;
+            }
+            .wrap #ul li {
+                height: 20px;
+                padding: 5px 5px 5px 20px;
+                margin: 5px 0;
+            }
+            .wrap #ul p {
+                font: 15px/20px "宋体";
+                display: inline-block;
+            }
+            .wrap #ul span {
+                display: inline-block;
+                width: 20px;
+            }
+            .wrap #ul em {
+                font: 15px/20px "宋体";
+                display: block;
+                float: right;
+                width: 40px;
+            }
+            .wrap .p2 {
+                font: 25px/60px "宋体";
+            }
+            .wrap #text {
+                width: 450px;
+                height: 30px;
+                padding: 25px;
+                border: 1px solid black;
+                font: 20px/30px "宋体";
+                margin-bottom: 20px;
+                resize: none;
+            }
+            .wrap #btn {
+                width: 500px;
+                height: 45px;
+                font: 20px/45px "宋体";
+            }
+        </style>
+    </head>
+    <body>
+        <section class="wrap">
+            <p class="p">留言板</p>
+            <ul id="ul"></ul>
+            <p class="p2">请输入留言内容</p>
+            <textarea id="text"></textarea>
+            <input type="button" value="发表留言" id="btn">
+        </section>
+    </body>
+    <script src="jquery-3.1.1.min.js"></script>
+    <script>
+    	(function() {
+    		var $wrap = $(".wrap");
+    		var $ul = $("#ul");
+            var $text = $("#text");
+            var $btn = $("#btn");
+            var color = ["#ff6600","#6600ff","#ccc"];
+            var arr = [];
+            var num = 0;   // 第几行
+            var oldColor = "";
+            $btn.click(function() {
+                if($text.val() == "") {
+                   	alert('请输入内容');
+					return;
+                } else {
+                    num++;
+                    var $li = $("<li>"+$text.val()+"</li>");
+                    var $span = $("<span>"+num+"</span>");
+                    var $em = $("<em>"+"删除"+"</em>");
+                    $li.prepend($span);
+                    $li.append($em);
+                    $ul.append($li);
+                    var $lis = $("li");
+                    var $ems = $("em");
+                    var $spans = $("span");
+                    $lis.each(function(i,e) {
+                    	$(e).css("background",color[i%color.length]);
+                    });
+                    arr.length = 0;  
+                    arr.push($spans.text());
+                    console.log(arr)
+                }
+                $text.val("");
+                $em.click(function() {
+                    $(this).parent().html("").remove();
+//                  num--;
+                    $spans.each(function(i,e) {
+                    	$(e).html(i+1);
+                    });
+                });
+            });
+
+
+
+    	})();
+    </script>
+</html>

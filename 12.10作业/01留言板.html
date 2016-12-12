@@ -81,45 +81,49 @@
             <input type="button" value="发表留言" id="btn">
         </section>
     </body>
-    <script src="../../jquery-3.1.1.min.js"></script>
+    <script src="jquery-3.1.1.min.js"></script>
     <script>
     	(function() {
     		var $wrap = $(".wrap");
-            var $ul = $("#ul");
-            var $lis = $("#ul li");
-            var $p = $("p");
+    		var $ul = $("#ul");
             var $text = $("#text");
             var $btn = $("#btn");
-            var $em = $("em");
             var color = ["#ff6600","#6600ff","#ccc"];
-            var nub = 0;
+            var arr = [];
             var num = 0;   // 第几行
             var oldColor = "";
-            console.log($lis);
             $btn.click(function() {
                 if($text.val() == "") {
-                    // $ul.html($ul.html());  //  报错
-                    $ul[0].innerHTML = $ul[0].innerHTML;
+                   	alert('请输入内容');
+					return;
                 } else {
                     num++;
-                    // $ul.html() = $ul.html("<li><span>"+num+"</span><p>"+$text.val()+"</p></li>");   //  报错
-                    $ul[0].innerHTML = $ul[0].innerHTML + "<li><span>"+num+"、"+"</span><p>"+$text.val()+"</p><em>"+"删除"+"</em></li>";
+                    var $li = $("<li>"+$text.val()+"</li>");
+                    var $span = $("<span>"+num+"</span>");
+                    var $em = $("<em>"+"删除"+"</em>");
+                    $li.prepend($span);
+                    $li.append($em);
+                    $ul.append($li);
+                    $("li").each(function(i,e) {
+                    	$(e).css("background",color[i%color.length]);
+                    });
+                    arr.push(num);
+//                  console.log(arr)
                 }
-
-                $lis.each(function(i,e){
-                    $(e).css = ("background",color[i%color.length]);
-                });
                 $text.val("");
-                $em.click(function() {
-                    $(this).parent().remove();
-                    num--;
-                    $ul[0].innerHTML = $ul[0].innerHTML + "<li><span>"+num+"、"+"</span><p>"+$text.val()+"</p><em>"+"删除"+"</em></li>";
+                $em.on("click",function() {
+                	arr.pop();        //$("em")点击时？？？？？？？？？？？？？？？、一次减好多个
+//              	console.log(arr)
+                    $(this).parent().html("").remove(); 
+                    $("li").each(function(i,e) {
+                    	$(e).css("background",color[i%color.length]);
+                    });
+                    $("span").each(function(i,e) {
+                    	$(e).html(arr[i]);
+                    }); 
                 });
-
             });
-
-
-
     	})();
     </script>
 </html>
+

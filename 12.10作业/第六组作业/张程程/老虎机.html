@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>js简易老虎机</title>
+<style>
+body{ margin:100px;}
+#box{  position:relative;}
+.box div{ width:100px; height:100px; background-color:#19D5FF; border:1px solid #A2EEFF; box-sizing:border-box;text-align:center; line-height:33px;}
+.a0{ position:absolute; top:300px; left:600px;}
+.a1{ position:absolute; top:400px; left:600px;}
+.a2{ position:absolute; top:500px; left:600px;}
+.a3{ position:absolute; top:600px; left:600px;}
+
+.a4{ position:absolute; top:600px; left:500px;}
+.a5{ position:absolute; top:600px; left:400px;}
+.a6{ position:absolute; top:600px; left:300px;}
+.a7{ position:absolute; top:600px; left:200px;}
+.a8{ position:absolute; top:600px; left:100px;}
+.a9{ position:absolute; top:600px; left:0px;}
+.a10{ position:absolute; top:500px; left:0px;}
+
+.a11{ position:absolute; top:400px; left:0px;}
+.a12{ position:absolute; top:300px; left:0px;}
+.a13{ position:absolute; top:200px; left:0px;}
+.a14{ position:absolute; top:100px; left:0px;}
+.a15{ position:absolute; top:0px; left:0px;}
+.a16{ position:absolute; top:0px; left:100px;}
+
+.a17{ position:absolute; top:0px; left:200px;}
+.a18{ position:absolute; top:0px; left:300px;}
+.a19{ position:absolute; top:0px; left:400px;}
+.a20{ position:absolute; top:0px; left:500px;}
+.a21{ position:absolute; top:0px; left:600px;}
+
+.a22{ position:absolute; top:100px; left:600px;}
+.a23{ position:absolute; top:200px; left:600px;}
+
+#on{ background-color:#FC6; border:1px solid #EAB344;}
+
+#ontwo{ background-color:#FC6; border:1px solid #EAB344;}
+
+#btn{ position:fixed;left:850px; top:425px;width:50px; height:50px;}
+
+#box2{ position:relative; z-index:1;}
+.box2 div{width:100px; height:100px; background-color:#6EF9AC; border:1px solid #96FFC5; box-sizing:border-box; text-align:center; line-height:33px;}
+i{ text-indent:-9999px; display:block; text-align:center;}
+
+.b0{ position:absolute; top:300px; left:400px;}
+.b1{ position:absolute; top:400px; left:400px;}
+.b2{ position:absolute; top:400px; left:300px;}
+.b3{ position:absolute; top:400px; left:200px;}
+
+.b4{ position:absolute; top:300px; left:200px;}
+.b5{ position:absolute; top:200px; left:200px;}
+.b6{ position:absolute; top:200px; left:300px;}
+.b7{ position:absolute; top:200px; left:400px;}
+#tt{ position:absolute; top:50px; left:50px;}
+
+.jt{
+	 position:absolute;
+	 left:585px; top:410px;
+	border:40px solid #fff;
+    border-right-color:red;
+	z-index:0;
+    width: 0px;
+    height: 0px;}
+</style>
+</head>
+
+<body>
+<div id="box" class="box">
+    <div class="list a0"><i>0</i><span>开始</span></div>
+    <div class="a1"><i>1</i><span>苹果</span></div>
+    <div class="a2"><i>2</i><span>苹果（小）</span></div>
+    <div class="a3"><i>3</i><span>橙子</span></div>
+    <div class="a4"><i>4</i><span>橙子(小)</span></div>
+    <div class="a5"><i>5</i><span>蓝莓</span></div>
+    <div class="a6"><i>6</i><span>蓝莓(小)</span></div>
+    <div class="a7"><i>7</i><span>西瓜</span></div>
+    <div class="a8"><i>8</i><span>西瓜(小)</span></div>
+    <div class="a9"><i>9</i><span>铃铛</span></div>
+    <div class="a10"><i>10</i><span>铃铛(小)</span></div>
+    <div class="a11"><i>11</i><span>双星</span></div>
+    <div class="a12"><i>12</i><span>双星(小)</span></div>
+    <div class="a13"><i>13</i><span>大王</span></div>
+    <div class="a14"><i>14</i><span>小王</span></div>
+    <div class="a15"><i>15</i><span>芒果</span></div>
+    <div class="a16"><i>16</i><span>芒果(小)</span></div>
+    <div class="a17"><i>17</i><span>蓝莓</span></div>
+    <div class="a18"><i>18</i><span>橙子</span></div>
+    <div class="a19"><i>19</i><span>苹果</span></div>
+    <div class="a20"><i>20</i><span>西瓜</span></div>
+    <div class="a21"><i>21</i><span>双星</span></div>
+    <div class="a22"><i>22</i><span>哈密瓜</span></div>
+    <div class="a23"><i>23</i><span>哈密瓜（小）</span></div>
+</div>
+
+
+<div id="box2" class="box2">
+    <div class="b0"><i>0</i><span>芒果</span></div>
+    <div class="b1"><i>1</i><span>苹果</span></div>
+    <div class="b2"><i>2</i><span>西瓜</span></div>
+    <div class="b3"><i>3</i><span>双星</span></div>
+    <div class="b4"><i>4</i><span>橙子</span></div>
+    <div class="b5"><i>5</i><span>蓝莓</span></div>
+    <div class="b6"><i>6</i><span>哈密瓜</span></div>
+    <div class="b7"><i>7</i><span>铃铛</span></div>
+</div>
+
+<input type="button" id="btn" onclick="demo()" value="开始" />
+
+<div id="tt"></div>
+<div class="jt"></div>
+</body>
+</html>
+<script>
+var div=document.getElementById("box").getElementsByTagName("div");
+var div2=document.getElementById("box2").getElementsByTagName("div");
+var btn=document.getElementById("btn");
+var n=div.length;
+var n2=div2.length;
+var w=0;
+var w2=0;
+var i=0;
+var m=0;
+var c=0;
+var a=0;
+judge();
+console.log(div);
+
+function judge(){
+if(document.getElementById("on")!=undefined){
+}else{
+div2[c].setAttribute("id","");
+div[0].setAttribute("id","on");
+	}
+}
+
+function demo(){
+btn.disabled = true;
+judge();	
+var ram=Math.round(Math.random()*25+70); //进入中间设置为72
+w=ram;
+t=setTimeout('test()',200);
+}
+
+
+function test(){
+     var a=parseInt(document.getElementById("on").firstChild.innerHTML);
+        if(a>=n-1){
+	      a=0;
+          div[n-1].setAttribute("id","");
+          div[a].setAttribute("id","on");
+		}else{
+          div[a].setAttribute("id","");
+          div[a+1].setAttribute("id","on");
+       }
+		   	   
+i=i+1;
+document.getElementById("tt").innerHTML=i;
+if(i>=w){
+    var a2=parseInt(document.getElementById("on").firstChild.innerHTML);
+	if(a2==0){
+		 t=setTimeout('div[0].setAttribute("id","")',400);
+		 t=setTimeout('div2[0].setAttribute("id","ontwo")',400);
+        var ram2=Math.round(Math.random()*25+40);
+        w2=ram2;
+		 t=setTimeout('testtwo()',500);
+		}else{	
+          t=setTimeout('btn.disabled=false',1000);//延时1秒
+		 var name=document.getElementById("on").lastChild.innerHTML;
+	     t=setTimeout(alert(name),300); 
+		}
+	     i=0;	
+		 
+	}
+    else if(i<5){
+	   t=setTimeout('test()',200);
+	}
+    else if(i<(w-4)){
+	   t=setTimeout('test()',30);
+	}	
+	else{
+       t=setTimeout('test()',200);
+	   
+    }
+
+}
+
+
+function testtwo(){
+         var b=parseInt(document.getElementById("ontwo").firstChild.innerHTML);
+	        if(b>=n2-1){
+		      b=0;
+              div2[n2-1].setAttribute("id","");
+	          div2[b].setAttribute("id","ontwo");
+
+
+			}else{
+	          div2[b].setAttribute("id","");
+	          div2[b+1].setAttribute("id","ontwo");
+
+           }
+			m=m+1;
+			if(m>=w2){
+				 c=parseInt(document.getElementById("ontwo").firstChild.innerHTML);
+				 m=0;
+				 t=setTimeout('btn.disabled=false',1000);//延时1秒 
+				 var name2=document.getElementById("ontwo").lastChild.innerHTML;
+				 t=setTimeout(alert(name2),300); 
+				}
+			else if(m<4){
+				t=setTimeout('testtwo()',200);
+				}
+			else if(m<(w2-3)){
+				t=setTimeout('testtwo()',30);
+				}	
+				else{
+				t=setTimeout('testtwo()',200);
+				}	
+ 			
+}
+	
+</script>

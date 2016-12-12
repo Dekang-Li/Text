@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+        #wrap span{
+            font-size:50px;
+        }
+        .red{
+            color:red;
+        }
+        .gray{
+            color:gray;
+        }
+        </style>
+    </head>
+    <body>
+    <div id="wrap">
+        <span>❤</span>
+        <span>❤</span>
+        <span>❤</span>
+        <span>❤</span>
+        <span>❤</span>
+    </div>
+    </body>
+    <script src="jquery-3.1.1.min.js"></script>
+    <script>
+        (function(){
+            var $now=-1;
+            var $On0ff=false;
+                $("span").hover(function(event) {
+                    set($(this).index());
+                },
+                function(){
+                   $("span").each(function(i,e){
+                        if($now<0){
+                            $("span")[i].className="";
+                        }
+                    })
+                    if($On0ff){
+                       set($now);
+                    }
+                }
+                );
+                $("span").click(function(i,e){
+                    $now=$(this).index();
+                    console.log($now)
+                    $On0ff=true;
+                })
+                function set(nub){
+                    $("span").each(function(i,e){
+                        $("span")[i].className="";
+                    })
+                    for(var i=0; i<=nub; i++){
+                        if(nub<2){
+                           $("span")[i].className="gray";
+                        }else{
+                            $("span")[i].className="red";
+                        }
+                    }
+                }
+
+        })()
+    </script>
+</html>

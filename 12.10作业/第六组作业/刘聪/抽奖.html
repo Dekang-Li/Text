@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .lottery {
+            width: 300px;
+        }
+
+        .start {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .start .btn {
+            font: 20px/30px '宋体';
+        }
+
+        .wrap {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .box {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .box span {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 1;
+            width: 98px;
+            height: 98px;
+            font: 50px/98px '宋体';
+            text-align: center;
+            border: 1px solid #000;
+            background: #ffeed9;
+        }
+
+        .box .active {
+            background: red;
+        }
+
+        .center {
+            overflow: hidden;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 0;
+            width: 98px;
+            height: 98px;
+            margin: -50px 0 0 -50px;
+            font: 50px/98px '宋体';
+            text-align: center;
+            border: 1px solid #000;
+        }
+
+        .center span {
+            position: absolute;
+            left: 50%;
+            bottom: 50%;
+            margin-left: -6px;
+            width: 0;
+            height: 0;
+            border: 40px solid;
+            border-width: 40px 6px;
+            transform-origin: bottom center;
+            border-color: #fff #fff #f00;
+        }
+    </style>
+</head>
+<body>
+<section class="lottery">
+    <div class="start">
+        <input type="button" value="开始" class="btn">
+    </div>
+    <div class="wrap">
+        <div class="box">
+            <span class="active">1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+            <span>7</span>
+            <span>8</span>
+        </div>
+        <div class="center">
+            <span></span>
+        </div>
+    </div>
+</section>
+<script src="jquery-3.1.1.js"></script>
+<script>
+    var arr = [
+        {left: 100, top: 0},
+        {left: 200, top: 0},
+        {left: 200, top: 100},
+        {left: 200, top: 200},
+        {left: 100, top: 200},
+        {left: 0, top: 200},
+        {left: 0, top: 100},
+        {left: 0, top: 0}
+    ];
+
+    $('.box').find('span').each(function (i, e) {
+        $(this).css({
+            left: arr[i].left,
+            top: arr[i].top
+        });
+    });
+</script>
+<script>
+    var timer = null;
+    var n = 0;
+    var onOff = false;
+    var point = $('.center').find('span')[0];
+
+    $('.lottery').find('.btn').click(function () {
+        if (onOff) {
+            onOff = false;
+            clearInterval(timer);
+            $(this).val('开始');
+
+            point.style.transition = 'none';
+            $('.box').find('span').css('transition', 'none');
+            $('.box').find('span').eq((n - 1) % 8).removeClass('active');
+            $('.box').find('span').eq(n % 8).addClass('active');
+            point.style.transform = 'rotate(' + (n * 45) + 'deg)';
+
+            setTimeout(function () {
+                if ((n + 1) % 8 === 0) {
+                    alert('恭喜您，中了' + 8 + '等奖！');
+                } else {
+                    alert('恭喜您，中了' + (n + 1) % 8 + '等奖！');
+                }
+            }, 200);
+        } else {
+            onOff = true;
+            $(this).val('停止');
+
+            point.style.transition = '.2s';
+            $('.box').find('span').css('transition', '.2s');
+            timer = setInterval(function () {
+                $('.box').find('span').eq(n % 8).removeClass('active');
+                n++;
+                $('.box').find('span').eq(n % 8).addClass('active');
+                point.style.transform = 'rotate(' + (n * 45) + 'deg)';
+            }, 200);
+        }
+    });
+
+
+</script>
+</body>
+</html>

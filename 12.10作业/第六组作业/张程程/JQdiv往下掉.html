@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+body {
+	margin: 0;
+}
+.wrap div {
+	width: 100px;
+	height: 100px;
+	background: red;
+	position: absolute;
+	top: 10px;
+	transition: 1s;
+}
+</style>
+<script src="jquery-3.1.1.js"></script>
+<script src="miaov.js"></script>
+<title></title>
+</head>
+<body>
+<div class="wrap"></div>
+</body>
+<script>
+(function () {
+	for ( var i = 0; i < 10; i++ ) {
+		var $div = $('<div></div>');
+		$div.css('left',''+ (i * 120) +'px');
+		$('.wrap').append($div);
+	}
+	
+	var $divs = $('.wrap').children();
+	
+	
+	$divs.click(function () {
+		var _this = $(this);
+		_this.css('top','400px');
+		contiN(_this);
+		contiP(_this);
+	});
+	
+	//如果存在下一个元素 则继续该运动
+	function contiN(obj) {
+		var tag = obj.next();
+		if ( tag ) {
+			var timer = setTimeout(function () {
+				tag.css('top','400px');
+				contiN(tag);
+			},100);
+		}
+	}
+	function contiP(obj) {
+		var tag = obj.prev();
+		if ( tag ) {
+			var timer = setTimeout(function () {
+				tag.css('top','400px');
+				contiP(tag);
+			},100);
+		}
+	}
+	
+})();
+</script>
+</html>

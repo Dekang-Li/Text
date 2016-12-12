@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<style>
+.pingfen {
+	width: 463px;
+	height: 40px;
+	margin: 30px auto;	
+}
+.wrap {
+	float: left;
+	overflow: hidden;
+	padding-top: 8px;	
+}
+p {
+	float: left;
+	margin: 0;
+	font: bold 18px/24px "宋体";	
+	padding-left: 8px;
+	background: url(img/icon.png) no-repeat 0 3px;
+}
+a {
+	float: left;
+	padding-left: 5px;
+	width: 20px;
+	height: 22px;
+	background: url(img/star.png) no-repeat;	
+}
+.bad {
+	background: url(img/star2.png) no-repeat;
+}
+.good {
+	background: url(img/star1.png) no-repeat;
+}
+#tips {
+	height: 38px;
+	width: 234px;
+	float: left;
+	background: #ffffe7 url(img/tip.png) no-repeat 150px 10px;
+	border: 1px solid #dedeb5;
+	font: 12px/38px "宋体";
+	text-indent: 7px;	
+	color: #94948c;
+	position: relative;
+}
+#tips span {
+	position: absolute;
+	left: -5px;
+	top: 17px;
+	width: 5px;
+	height: 7px;
+	background: url(img/tt.png) no-repeat;	
+}
+#span {
+	float: left;
+	font: 14px/24px "微软雅黑";
+	color: red;	
+	padding-left: 10px;
+}
+
+</style>
+<script src="jquery-3.1.1.js"></script>
+<script>
+$(function () {
+	var arrText = ['很差','较差','还行','推荐','力荐'];
+	var index = -1;//记录是否点击过
+		
+	$('a').hover(function () {
+		var num = $(this).index('a');
+		for ( var i = 0; i < $('a').length; i++ ) {
+			$('a').eq(i).attr('class','');
+		}
+		for ( var i = 0; i <= num; i++ ) {
+			if ( num < 2 ) {
+				$('a').eq(i).attr('class','bad');
+			} else {
+				$('a').eq(i).attr('class','good');
+			}
+		}
+		$('#tips').css('display','none');
+		$('#span').html(arrText[num]);
+	},function () {
+		if ( index == -1 ) {
+			for ( var i = 0; i < $('a').length; i++ ) {
+				$('a').eq(i).attr('class','');
+			} 
+			$('#tips').css('display','block');
+			$('#span').html('');
+		} else {
+			for ( var i = 0; i < $('a').length; i++ ) {
+				$('a').eq(i).attr('class','');
+			}
+			for ( var i = 0; i <= index; i++ ) {
+				if ( index < 2 ) {
+					$('a').eq(i).attr('class','bad');
+				} else {
+					$('a').eq(i).attr('class','good');
+				}
+			}
+			$('#tips').css('display','none');
+			$('#span').html(arrText[index]);
+		}
+	});
+	
+	$('a').click(function () {
+		index = $(this).index('a');
+	});
+
+
+
+	
+	
+})
+</script>
+<body>
+<div class="pingfen">
+    <div class="wrap">
+        <p>总体评价:</p>
+        <a href="javascript:;"></a>
+        <a href="javascript:;"></a>
+        <a href="javascript:;"></a>
+        <a href="javascript:;"></a>
+        <a href="javascript:;"></a>
+        <span id="span"></span>
+    </div>
+    <span id="tips">
+        <span></span>
+        小提示:点击星星就能打分
+    </span>
+</div>
+</body>
+</html>

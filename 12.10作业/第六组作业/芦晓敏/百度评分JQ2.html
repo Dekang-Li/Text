@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+<style>
+	body {
+		margin: 0;
+	}
+	nav span {
+		float: left;
+		font: 30px/1 "宋体";
+		margin: 0 2px;
+	}
+	.showLow {
+		color: #ccc;
+	}
+	.show {
+		color: red;
+	}
+	.text {
+		display: none;
+		font: 18px/40px "宋体";
+		color: #000;
+		margin-left: 10px;
+	}
+	.title {
+		font: 18px/40px "宋体";
+		color: #000;
+		margin-left: 10px;
+	}
+</style>
+<script src="jquery-3.1.1.min.js"></script>
+<script>
+/*
+ 1、鼠标移入：
+ 	1）给当前以及他前边的的元素加颜色
+ 	2）给当前后边的元素清颜色
+ 	
+ 	1）清除所有的颜色
+ 	2） 给当前以及他前边的元素加颜色
+*/
+	
+$(function(){
+	var nowIndex = -1;
+	var arr = ["很差","较差","还行","推荐","力荐"];
+	
+	$('span').hover(function(){
+		$('span').removeClass('showLow').removeClass('show');
+		if($(this).index() < 2){
+			$(this).addClass('showLow').prevAll().addClass('showLow');
+		} else {
+			$(this).addClass('show').prevAll().addClass('show');
+		}		
+		$('.text').html(arr[$(this).index()]).show();
+		$('.title').hide();
+	},function(){
+		$('span').removeClass('showLow').removeClass('show');
+		if(nowIndex > -1){
+			if(nowIndex < 2){
+				$('span').eq(nowIndex).addClass('showLow').prevAll().addClass('showLow');
+			} else {
+				$('span').eq(nowIndex).addClass('show').prevAll().addClass('show');
+			}
+			$('.text').html(arr[nowIndex]);
+			$('title').hide();
+		} else {
+			$('.text').hide();
+			$('.title').show();
+		}
+		
+		//点击
+		$('span').click(function(){		
+			$('.text').html(arr[$(this).index()]).show();
+			$('.title').hide();
+			nowIndex = $(this).index();
+		});
+	});
+
+});
+</script>
+</head>
+<body>
+<nav>
+	<span>★</span>
+	<span>★</span>
+	<span>★</span>
+	<span>★</span>
+	<span>★</span>
+</nav>
+<p class="text">很差</p>
+<p class="title">评分：</p>
+</body>
+
+</html>

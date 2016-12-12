@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #wrap {
+            width: 500px;
+        }
+
+        #messageBoard {
+            position: relative;
+            height: 300px;
+            padding: 20px 0;
+            overflow: scroll;
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+        }
+
+        #messageBoard li {
+            width: 100%;
+            height: 20px;
+            padding: 5px 0;
+            font-size: 0;
+        }
+
+        #messageBoard li * {
+            font: 16px/20px "宋体";
+        }
+
+        #messageBoard li span {
+            display: inline-block;
+            padding-left: 10px;
+            width: 50%;
+            vertical-align: top;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        #message {
+            width: 100%;
+            height: 100px;
+            resize: none;
+            overflow: auto;
+        }
+
+        #publish {
+            width: 100%;
+            height: 30px;
+        }
+    </style>
+    <script type="text/javascript">
+    </script>
+</head>
+
+<body>
+<div id="wrap">
+    <h2>留言板</h2>
+    <ul id="messageBoard">
+        <li>
+            <em>1</em>
+            <span>111</span>
+            <input type="button" class="pre" value="上移">
+            <input type="button" class="next" value="下移">
+            <input type="button" class="remove" value="删除">
+        </li>
+        <li>
+            <em>2</em>
+            <span>222</span>
+            <input type="button" class="pre" value="上移">
+            <input type="button" class="next" value="下移">
+            <input type="button" class="remove" value="删除">
+        </li>
+        <li>
+            <em>3</em>
+            <span>333</span>
+            <input type="button" class="pre" value="上移">
+            <input type="button" class="next" value="下移">
+            <input type="button" class="remove" value="删除">
+        </li>
+        <li>
+            <em>4</em>
+            <span>444</span>
+            <input type="button" class="pre" value="上移">
+            <input type="button" class="next" value="下移">
+            <input type="button" class="remove" value="删除">
+        </li>
+    </ul>
+    <h2>请输入留言内容</h2>
+    <textarea name="message" id="message"></textarea>
+    <div><input type="button" name="publish" id="publish" value="发表留言"/></div>
+</div>
+</body>
+<script src="jquery-3.1.1.js"></script>
+<script>
+    var arr = [];
+    var num = $('#messageBoard').find('li').length;
+    var liH = $('#messageBoard').find('li').eq(0).innerHeight();
+
+    //布局转换
+    changeBj();
+    function changeBj() {
+        $('#messageBoard').find('li').each(function (i, e) {
+            arr[i] = {
+                left: $(e).position().left,
+                top: $(e).position().top
+            };
+            $(e).css({
+                left: $(e).position().left,
+                top: $(e).position().top
+            });
+            $(e).attr('index', i);
+        });
+        $('#messageBoard').find('li').css('position', 'absolute');
+    }
+
+    //发表留言
+    $('#publish').click(pbFn);
+    function pbFn() {
+        var $li = $('<li><em>' + (num + 1) + '</em><span>' + $('#message').val()
+                + '</span><input type="button" class="pre" value="上移">'
+                + '<input type="button" class="next" value="下移">'
+                + '<input type="button" class="remove" value="删除"></li>');
+        arr[num] = {
+            left: arr[0].left,
+            top: arr[num - 1].top + liH
+        };
+        $li.css({
+            left: arr[0].left,
+            top: arr[num - 1].top + liH,
+            position: 'absolute'
+        });
+        $li.attr('index', num);
+        $li.find('.remove').click(rmFn);
+        $li.find('.pre').click(preFn);
+        $li.find('.next').click(nextFn);
+
+        $li.appendTo($('#messageBoard'));
+        num++;
+        console.log('发表：' + arr.length);
+    }
+
+    //删除
+    $('.remove').click(rmFn);
+    function rmFn() {
+        $(this).parent().remove();//dom
+        $('#messageBoard').find('li').each(function (i, e) {
+            $(e).animate({//样式
+                left: arr[i].left,
+                top: arr[i].top
+            }, function () {
+                $(e).attr('index', i);//下标
+                $(e).find('em').html(i + 1);//内容
+            });
+        });
+        num--;
+        arr.length = num;
+        console.log('删除：' + arr.length);
+    }
+
+    //上移
+    $('.pre').click(preFn);
+    function preFn() {
+        if ($(this).parent().prev().length) {
+            var index = $(this).parent().attr('index');
+            var nIndex = $(this).parent().prev().attr('index');
+            $(this).parent().animate({
+                top: arr[nIndex].top
+            }, function () {
+                $(this).attr('index', nIndex);
+                $(this).find('em').html(nIndex * 1 + 1);
+                $(this).insertBefore($(this).prev());
+            });
+            $(this).parent().prev().animate({
+                top: arr[index].top
+            }, function () {
+                $(this).attr('index', index);
+                $(this).find('em').html(index * 1 + 1);
+            });
+        } else {
+            var lLi = $('#messageBoard').find('li').last();
+            var lIndex = lLi.attr('index');
+            $(this).parent().animate({
+                top: arr[lIndex].top
+            }, function () {
+                $(this).insertAfter(lLi);
+                $('#messageBoard').find('li').each(function (i, e) {
+                    $(e).animate({//样式
+                        left: arr[i].left,
+                        top: arr[i].top
+                    }, function () {
+                        $(e).attr('index', i);//下标
+                        $(e).find('em').html(i + 1);//内容
+                    });
+                });
+
+            });
+        }
+    }
+
+    //下移
+    $('.next').click(nextFn);
+    function nextFn() {
+        if ($(this).parent().next().length) {
+            var index = $(this).parent().attr('index');
+            var nIndex = $(this).parent().next().attr('index');
+            $(this).parent().animate({
+                top: arr[nIndex].top
+            }, function () {
+                $(this).attr('index', nIndex);
+                $(this).find('em').html(nIndex * 1 + 1);
+                $(this).insertAfter($(this).next());
+            });
+            $(this).parent().next().animate({
+                top: arr[index].top
+            }, function () {
+                $(this).attr('index', index);
+                $(this).find('em').html(index * 1 + 1);
+            });
+        } else {
+            var fLi = $('#messageBoard').find('li').first();
+            var fIndex = fLi.attr('index');
+            $(this).parent().animate({
+                top: arr[fIndex].top
+            }, function () {
+                $(this).insertBefore(fLi);
+                $('#messageBoard').find('li').each(function (i, e) {
+                    $(e).animate({//样式
+                        left: arr[i].left,
+                        top: arr[i].top
+                    }, function () {
+                        $(e).attr('index', i);//下标
+                        $(e).find('em').html(i + 1);//内容
+                    });
+                });
+
+            });
+        }
+    }
+
+</script>
+</html>

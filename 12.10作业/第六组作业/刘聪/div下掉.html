@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #wrap {
+            position: relative;
+        }
+
+        #wrap span {
+            float: left;
+            width: 50px;
+            height: 50px;
+            margin: 2px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+<script src="jquery-3.1.1.js"></script>
+<script>
+    var $span = $('#wrap').find('span');
+    var flag = true;//向下还是向上运动
+    var speed = '200px';//运动距离
+
+    //布局转换
+    $span.each(function (i, e) {
+        $(e).css({
+            left: $(this).position().left,
+            top: $(this).position().top
+        });
+    });
+    $span.css('position', 'absolute');
+
+
+    //点击事件
+    $span.click(function () {
+        speed = flag ? '200px' : '0';
+        flag = !flag;
+        var _$this = $(this);
+        $(this).animate({top: speed}, 500);
+        if ($(this).next().length) {
+            setTimeout(function () {
+                nextFn(_$this.next());
+            }, 50);
+        }
+        if ($(this).prev().length) {
+            setTimeout(function () {
+                prevFn(_$this.prev());
+            }, 50);
+        }
+    });
+
+    function nextFn($ele) {
+        $ele.animate({top: speed}, 500);
+        if ($ele.next().length) {
+            setTimeout(function () {
+                nextFn($ele.next());
+            }, 50);
+        }
+    }
+
+    function prevFn($ele) {
+        $ele.animate({top: speed}, 500);
+        if ($ele.prev().length) {
+            setTimeout(function () {
+                prevFn($ele.prev());
+            }, 50);
+        }
+    }
+
+</script>
+</body>
+</html>

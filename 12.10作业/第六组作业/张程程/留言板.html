@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<style>
+.wrap {
+	width: 400px;
+	margin: 30px auto;	
+}
+h2 {
+	margin: 0;	
+}
+#div {
+	border-top: 1px solid #000;	
+	border-bottom: 1px solid #000;
+	padding: 25px 10px;	
+}
+h2:nth-of-type(2) {
+	line-height: 50px;	
+}
+#content {
+	height: 150px;
+	width: 398px;
+	border: 1px solid #000;	
+	resize: none;
+	padding: 0;
+}
+#btn {
+	font: 16px/40px "微软雅黑";
+	width: 400px;
+	height: 40px;
+}
+p {
+	text-indent: 1em;
+	margin: 0;
+	font: 14px/30px "微软雅黑";	
+	margin-bottom: 10px;
+	word-break: break-all;
+	overflow: hidden;
+	border-bottom: 1px dashed #FF0000;
+}
+p span {
+	float: left;
+}
+p a {
+	text-decoration: none;
+	float: right;
+	color: blue;
+}
+</style>
+<script src="jquery-3.1.1.js"></script>
+<script>
+$(function (){
+	var arr = [1];//记录所有的编号
+	var now = 1;
+
+	$('#btn').click(function () {
+		
+		if ( $('#content').val() == '' ) {
+			alert('请输入内容');
+			return;
+		} else {
+			var p = $('<p>');
+			var span1 = $('<span class="sort">'+ now +'</span>');
+			var span2 = $('<span>'+ $('#content').val() +'</span>')
+			var a = $('<a href="javascript:;">删除</a>');
+			p.append(span1);
+			p.append(span2);
+			p.append(a);
+			$('#div').append(p);
+			now++;
+			arr.push(now);
+			//鼠标移入移出
+			p.hover(function () {
+				$(this).css('background','yellow');
+			},function () {
+				$(this).css('background','');
+			});
+			//点击删除  重置所有编号
+			a.click(function () {
+				arr.pop();
+				now--;
+				var $par = $(this).parent();
+				$par.remove();
+				$('.sort').each(function (i,e) {
+					$(e).html(''+ arr[i] +'');
+				})
+			});
+		}
+		$('#content').val('');
+
+	})
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+})
+
+</script>
+<body>
+<div class="wrap">
+	<h2>留言板</h2>
+    <div id="div">
+    	<!--<p><span class="sort">1</span><span>ksjfklajflksjalkfjkalfj</span><a href="javascript:;">删除</a></p>-->
+    </div>
+    <h2>请输入留言内容</h2>
+    <textarea id="content"></textarea>
+    <input type="button" id="btn" value="发表留言">
+</div>
+</body>
+</html>

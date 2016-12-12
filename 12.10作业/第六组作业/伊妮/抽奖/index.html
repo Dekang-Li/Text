@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+        #wrap{
+            width:640px;
+            height:640px;
+            margin:30px auto;
+            border:1px solid #000;
+            position:relative;
+        }
+        #wrap .start{
+            width:200px;
+            height:200px;
+            position:absolute;
+            left:210px;
+            top:210px;
+            background:url(images/arrow.png) no-repeat 0 0;
+            background-size:auto 200px;
+        }
+        #wrap img{
+            transition: 2s;
+        }
+        </style>
+        <script src="../jquery-3.1.1.min.js"></script>
+    </head>
+    <body>
+    <div id="wrap">
+        <div class="prize">
+            <img src="images/lanren.png">
+        </div>
+        <div class="start"></div>
+    </div>
+    </body>
+    <script>
+        (function(){
+            var img=document.getElementsByTagName("img")[0]
+            $(".start").click(function(){
+                img.style.transform="rotate("+random()+"deg)";
+                whichAward(30)
+                function random(){
+                    return Math.floor(Math.random()*360),whichAward();
+                }
+            })
+            var whichAward = function() {
+                if ((random() > 330 && random() <= 360) || (random() > 0 && random() <= 30)) { //10M流量
+                    alert("三网通流量 10M")
+                } else if ((random() > 30 && random() <= 90)) { //IPhone 7
+                    alert("iPhone7");
+                } else if (random() > 90 && random() <= 150) { //30M流量
+                     alert( "三网通流量 30M");
+                } else if (random() > 150 && random() <= 210) { //5元话费
+                    alert("话费5元");
+                } else if (random() > 210 && random() <= 270) { //IPad mini 4
+                    alert("ipad mini4");
+                } else if (random() > 270 && random() <= 330) { //20元话费
+                    alert("话费20元");
+                }
+            }
+
+
+            //console.log(random())
+        })()
+    </script>
+</html>

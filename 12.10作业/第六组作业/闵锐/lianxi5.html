@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+	#wrap {
+		position: relative;
+		margin: 40px auto;
+		width: 410px;
+		height: 410px;
+		overflow: hidden;	
+	}
+	#wrap div {
+		position: absolute;
+		width: 100px;
+		height: 100px;
+		border: 1px solid #333;
+		box-sizing: border-box;	
+		font: 16px/100px "微软雅黑";
+		text-align: center;
+	}
+	.active {
+		background: red;
+		opacity: .6;	
+	}
+</style>
+<script src="jquery-3.1.1.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="wrap">
+    </div>
+    <script>
+   		(function(){
+			var arr = ['一等奖','二等奖','三等奖','四等奖','五等奖','六等奖','七等奖','八等奖','九等奖','十等奖'];
+			/*var $div;
+			var arrD = [];
+			for(var i = 0;i<16;i++){
+				$div = $('<div></div>').css({
+					top:Math.floor(i/4)*100,
+					left:(i%4)*100
+				})
+				arrD.push($div);
+				$('#wrap').append($div);
+			}
+			var $divs = $('#wrap').find('div');
+			$divs.each(function(i, e) {
+				console.log($(e).css('top'))
+				if($(e).css('top')>='100px'&&$(e).css('top')<='200px'&&$(e).css('left')>='100px'&&$(e).css('left')<='200px'){
+					$(e).remove();
+					arrD.splice(i,1);
+				}
+            });	
+			arrD[11].css({
+				top:100,
+				left:0	
+			})*/
+			var $div;
+			var timer;
+			for(var i = 0;i<12;i++){
+				$div = $('<div>'+arr[i%arr.length]+'</div>');
+				$('#wrap').append($div);	
+			}
+			var $divs = $('#wrap').find('div');
+			$divs.eq(0).css({
+				top:0,
+				left:0
+			});
+			$divs.eq(1).css({
+				top:0,
+				left:100
+			});
+			$divs.eq(2).css({
+				top:0,
+				left:200
+			});
+			$divs.eq(3).css({
+				top:0,
+				left:300
+			});
+			$divs.eq(4).css({
+				top:100,
+				left:300
+			});
+			$divs.eq(5).css({
+				top:200,
+				left:300
+			});
+			$divs.eq(6).css({
+				top:300,
+				left:300
+			});
+			$divs.eq(7).css({
+				top:300,
+				left:200
+			});
+			$divs.eq(8).css({
+				top:300,
+				left:100
+			});
+			$divs.eq(9).css({
+				top:300,
+				left:0
+			});
+			$divs.eq(10).css({
+				top:200,
+				left:0
+			});
+			$divs.eq(11).css({
+				top:100,
+				left:0
+			});
+			$('#wrap').on('click',function(){
+				var n = 0;
+				var a = Math.floor(Math.random()*10)*1000;
+				$divs.eq(0).addClass('active').siblings('div').removeClass('active');
+				timer = setInterval(function(){
+					n++ 
+					$divs.eq(n%$divs.length).addClass('active').siblings('div').removeClass('active');
+					if((n%$divs.length)>3){
+						clearInterval(timer);
+						timer = setInterval(function(){
+							n++ 
+							$divs.eq(n%$divs.length).addClass('active').siblings('div').removeClass('active');
+						},100);	
+					}
+				},800);
+				setTimeout(function(){
+					clearInterval(timer);
+					var m = n+Math.floor(Math.random()*6);
+					timer = setInterval(function(){
+						n++ 
+						$divs.eq(n%$divs.length).addClass('active').siblings('div').removeClass('active');
+						if(n > m){
+							clearInterval(timer);	
+						}
+					},800);
+				},a);
+				return n;	
+			});
+		})()
+    </script>    
+</body>
+</html>
