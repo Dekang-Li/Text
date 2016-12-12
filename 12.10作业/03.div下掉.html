@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body {
+				margin: 0;
+			}
+			span {
+				display: block;
+				width: 60px;
+				height: 60px;
+				background: red;
+				float: left;
+				margin: 20px;
+
+			}
+		</style>
+	</head>
+	<body>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+	</body>
+	<script src="../../miaov.js"></script>
+	<script src="../../jquery-3.1.1.min.js"></script>
+	<script type="text/javascript">
+		(function() {
+			var $span = $("span");
+			var timer = 0;
+			for(var i = 0; i < $span.length; i++) {
+				$span[i].style.left = $span[i].offsetLeft + "px";
+				$span[i].style.top = $span[i].offsetTop + "px";
+			}
+			for(var i = 0; i < $span.length; i++) {
+				$span[i].style.margin = 0;
+				$span[i].style.position = "absolute";
+				$span[i].style.transition = "0s";
+			}
+
+			$span.click(function() {
+				drop($(this));
+			});
+
+			function drop(obj) {
+				obj.css({
+					top: "200px",
+					transition: "1s"
+				});
+//				clearTimeout(timer);
+//				mTween(obj[0],{top:200},1000,"linear");
+				timer = setTimeout(function() {
+					var next = obj.next();
+					var prev = obj.prev();
+					if(next){
+						drop(next);
+					}
+					if(prev) {
+						drop(prev);
+					};
+				},200);
+			}
+		})();
+	</script>
+</html>
