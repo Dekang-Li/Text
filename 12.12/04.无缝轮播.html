@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body {
+				margin: 0;
+			}
+			img {
+				border: none;
+				vertical-align: top;
+			}
+			input {
+				margin: 0;
+				padding: 0;
+				outline: none;
+			}
+			#wrap {
+				position: relative;
+				width: 240px;
+				height: 240px;
+				border: 8px solid #ccc;
+				margin: 150px auto;
+				overflow: hidden;
+			}
+			#img {
+				position: absolute;
+				left: 0;
+				top: 0;
+				height: 240px;
+				
+			}
+			input {
+				position: absolute;
+				top: 100px;
+				width: 40px;
+				height: 40px;
+				font: 25px/40px "微软雅黑";
+				z-index: 2;
+				border: 1px solid #ccc;
+				border-radius: 50px;
+				text-align: center;
+				background: #ccc;
+				cursor: pointer;
+			}
+			input:nth-of-type(1) {
+				left: 0;
+			}
+			input:nth-of-type(2) {
+				right: 0;
+			}
+			img {
+				width: 240px;
+				height: 240px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<input type="button" name="btn" id="btn1" value="<" />
+			<input type="button" name="btn" id="btn2" value=">" />
+			<div id="img">
+				<!--<img src="img/1.jpg" />-->
+			</div>
+		</div>
+	</body>
+	<script src="jquery-3.1.1.min.js"></script>
+	<script>
+		var arr = [
+			"img/1.jpg",
+			"img/2.jpg",
+			"img/3.jpg",
+			"img/4.jpg",
+			"img/5.jpg",
+			"img/1.jpg"
+		];
+		var nub = 0;
+		var isOff = true;
+		for(var i = 0; i < arr.length; i++) {
+			var $img = $("<img>");
+			$img.attr("src",arr[i]);
+			$("#img").append($img);
+		}
+		var w = $("img")[0].clientWidth;
+		$("#img").css("width",(w*arr.length));
+		$("#btn1").on("click",function() {
+			if(!isOff) {
+				return;
+			}
+			isOff = false;
+			if(nub <= 0) {
+				$("#img").css("left",-w*(arr.length - 1));
+				nub = arr.length - 1;
+			}
+			nub--;
+			console.log(nub);
+			$("#img").stop().animate({
+				left: -w*nub
+			});
+			isOff = true;
+		})
+		$("#btn2").on("click",function() {
+			if(!isOff) {
+				return;
+			}
+			isOff = false;
+			if(nub >= arr.length - 1) {
+				$("#img").css("left",0);
+				nub = 0;
+			}
+			nub++;
+			console.log(nub);
+			$("#img").stop().animate({
+				left: -w*nub
+			});
+			isOff = true;
+		})
+	</script>
+</html>
+
