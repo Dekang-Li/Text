@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box {
+				width: 100px;
+				height: 100px;
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box"></div>
+	</body>
+	<script src="../../jquery-3.1.1.js"></script>
+	<script>
+//		$("#box").hover(function() {
+//			$(this).animate({
+//				width: 600
+//			});
+//		},function() {
+//			$(this).animate({
+//				width: 100
+//			});
+//		});
+		$("#box").hover(function() {
+			$(this).stop().animate({
+				width: 600
+			},3000);
+		},function() {
+			$(this).stop().animate({
+				width: 100
+			});
+		});  
+		
+//		$("#box").hover(function() {
+//			$(this).stop(true,true).animate({
+//				width: 600
+//			});
+//		},function() {
+//			$(this).stop(true,true).animate({
+//				width: 100
+//			});
+//		});    // 加true马上执行完
+	</script>
+</html>
