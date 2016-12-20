@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            boby {
+                margin: 0;
+            }
+            #box div {
+                float: left;
+                width: 50px;
+                height: 50px;
+                margin: 10px;
+                background: red;
+                font: 40px/50px "宋体";
+                text-align: center;
+                color: #fff;
+            }
+        </style>
+        <script type="text/javascript" src="miaov.js"></script>
+        <script>
+            window.onload = function() {
+                var box = document.getElementById("box");
+                var divs = document.querySelectorAll("#box div");
+                var timer = 0;
+                for(var i = 0; i < divs.length; i++) {
+                    divs[i].style.left = divs[i].offsetLeft + "px";
+                    divs[i].style.top = divs[i].offsetTop + "px";
+                }
+                for(var i = 0; i < divs.length; i++) {
+                    divs[i].style.position = "absolute";
+                    divs[i].style.margin = 0;
+                    divs[i].innerHTML = i;
+                }
+                for(var i = 0; i < divs.length; i++) {
+                	divs[i].index = i;
+                	divs[i].onclick = function() {
+                		mTween(this,{top: 300},1000,"linear");
+                		if(divs[0].style.top == "300" && divs[divs.length - 1].style.top == "300") {
+                			clearTimeout(timer);
+
+                		}else {
+                			setPrev(this);
+                			setNext(this);
+                		}
+
+                	}
+                }
+                function setPrev(div) {
+            		timer = setTimeout(function() {
+            			mTween(div.previousElementSibling,{top: 300},1000,"linear");
+            			setPrev(div.previousElementSibling);
+            		},100);
+            	};
+            	function setNext(div1) {
+            		timer = setTimeout(function() {
+            			mTween(div1.nextElementSibling,{top: 300},1000,"linear");
+            			setNext(div1.nextElementSibling);
+            		},100);
+            	}
+            }
+        </script>
+    </head>
+    <body>
+        <div id="box">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </body>
+</html>
