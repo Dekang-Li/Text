@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <style type="text/css">
+        #wrap {
+            width: 500px;
+            height: 50px;
+            margin: 50px auto;
+            border: 1px solid black;
+        }
+        #wrap p {
+            float: left;
+            font: 20px/50px "宋体";
+            padding: 0 15px;
+            margin: 0;
+        }
+        #wrap span {
+            float: left;
+            width: 28px;
+            height: 28px;
+            border: 1px solid black;
+            margin: 10px;
+        }
+        #wrap #p {
+            float: left;
+            font: 18px/50px "宋体";
+            color: red;
+        }
+        .show {
+            background: red;
+        }
+        .showLow {
+            background: #ccc;
+        }
+    </style>
+    <script>
+
+        // 1. 需要有5个元素，和一个隐藏的评价；
+        // 2. 添加鼠标移入: 移入到第几课星 就给他之前的星星切换新背景,在他之后的
+        // 星星保持原始背景；只移入两颗星背景为灰色，两颗以上的星要切换的背景为red；
+        // 显示文字元素，根据当前移入的是第几课星，使用数组var arr = ["很差","较差","还行","推荐","力荐"];切换文字的内容
+        // 3. 鼠标移出:没有点击过:还原所有星星的背景；隐藏评价内容
+        //    发生过点击：鼠标移出 保持 点击的元素之前的背景，之后的还原；
+
+        //    ★ ★ ★ ★ 特别注意：移出时的元素不一定是点击的元素，可能在前边或后边；
+        //
+        //    在移出时，判断一下鼠标是否点击过   声明变量  var now = -1;  在now > 0 时点击过；
+        //    在now < 0 时，未点击过  默认now = -1未点击过。
+        window.onload = function() {
+            var wrap = document.getElementById("wrap");
+            var span = document.querySelectorAll("#wrap span");
+            var p = document.getElementById("p");
+            var arr = ["很差","较差","还行","推荐","力荐"];
+            var now = -1;
+
+            for(var i = 0;i < span.length; i++) {
+                span[i].index = i;
+                span[i].onmouseover = function() {
+                    var show = "show";
+                    if(this.index < 2) {
+                        show = "showLow";
+                    }
+                    for(var i = 0;i < span.length; i++) {
+                        if(i <= this.index) {
+                            span[i].className = show;
+                            // console.log(this.index);
+                        }
+
+                        else {
+                            span[i].className = "";
+                        }
+                        // else不能去掉，因为点击之后不一定在点击出移出  去掉后
+                    }
+                    p.innerHTML = arr[this.index];
+                }
+                span[i].onclick = function() {
+                    now = this.index;
+                }
+                span[i].onmouseout = function() {
+                    var show = "show";
+                    if(now < 2) {
+                        show = "showLow";
+                    }
+                    for(var i = 0;i < span.length; i++) {
+                        if(i <= now) {
+                            span[i].className = show;
+                        }else {
+                            span[i].className = "";
+                        }
+                    }
+                    if(now < 0) {
+                        for(var i = 0;i < span.length; i++) {
+                            span[i].className = "";
+                            p.innerHTML = "";
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+    <body>
+    <div id="wrap">
+        <p>总体评价:</p>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <p id="p"></p>
+    </div>
+    </body>
+</html>
