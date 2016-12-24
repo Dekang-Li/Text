@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <style>
+        #wrap {
+            width: 300px;
+            margin: 50px auto;
+        }
+        #nav {
+            height: 32px;
+            font-size: 0;
+        }
+        #nav a {
+            display: inline-block;
+            width: 98px;
+            font: 20px/30px "宋体";
+            text-align: center;
+            border: 1px solid black;
+            background: #ccc;
+            text-decoration: none;
+            color: #000;
+        }
+        #nav .active {
+            background: black;
+            color: #fff;
+        }
+        #wrap div {
+            width: 300px;
+            height: 250px;
+            font: 50px/250px "宋体";
+            text-align: center;
+            border: 1px solid black;
+            display: none;
+        }
+        #wrap .show {
+            display: block;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var navs = document.querySelectorAll("#nav a");
+            var divs = document.querySelectorAll("#wrap div");
+
+            // var i = 0;
+            for(var i = 0;i < navs.length; i++) {
+                navs[i].index = i;
+                //??????/
+                navs[i].onmouseover = function() {
+                    for(var i = 0;i < navs.length; i++) {
+                        navs[i].className = "";
+                        divs[i].className = "";
+                    }
+                this.className = "active";
+                divs[this.index].className ="show";
+                };
+            }
+        };
+
+    </script>
+    <body>
+        <div id="wrap">
+            <nav id="nav">
+                <a href="#" class="active">选项1</a>
+                <a href="#">选项2</a>
+                <a href="#">选项3</a>
+            </nav>
+            <div class="show">0</div>
+            <div>1</div>
+            <div>2</div>
+        </div>
+    </body>
+</html>

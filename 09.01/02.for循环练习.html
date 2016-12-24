@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <script>
+        window.onload = function() {
+            var input = document.getElementsByTagName("input");
+            var btn = document.getElementsByTagName("input")[input.length - 1];
+            var i = 0;
+            input[i].checked = false;
+            btn.onclick = function() {
+                for(var i = 0; i < input.length; i++) {
+                    if(input[i].checked == false) {
+                        input[i].checked = true;
+                    } else {
+                        input[i].checked = false;
+                    }
+                }
+            }
+        }
+    </script>
+    <body>
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox"><br />
+        <input type="button" value="全选/全部选">
+    </body>
+</html>

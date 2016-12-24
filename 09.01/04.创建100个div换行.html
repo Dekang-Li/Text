@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <style>
+            #wrap {
+                position: relative;
+                width: 1000px;
+                height: 1000px;
+                padding: 20px;
+                border: 2px solid black;
+                margin-left: 100px;
+            }
+            #wrap div {
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                width: 50px;
+                height: 50px;
+                border: 1px solid black;
+                margin: 10px;
+                display: inline-block;
+            }
+            #wrap div p {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <script>
+        window.onload = function() {
+            var input = document.getElementsByTagName("input")[0];
+            var wrap = document.getElementsByTagName("div")[0];
+            var p = document.getElementsByTagName("p");
+            var div = wrap.getElementsByTagName("div");
+            var i = 0;
+            var h = i/10;
+            var l = i/10;
+            input.onclick = function() {
+                if(wrap.innerHTML == "") {
+                    for(var i = 0;i < 100; i++) {
+                        wrap.innerHTML += '<div><p></p></div>';
+                        // wrap.innerHTML = wrap.innerHTML + '<div><p></p></div>';
+                        p[i].innerHTML = i + 1;
+                        for(var h = 0;h < 800; h ++) {
+                            div[i].style.left = h + "px";
+                        }
+                        for(var l = 0;l < 800; l ++) {
+                            div[i].style.top = l + "px";
+                            // alert("l");
+                        }
+                    }
+                } else {
+                    wrap.innerHTML = "";
+                }
+            }
+        }
+    </script>
+    <body>
+        <input type="button" value="创建100个div" />
+        <div id="wrap"></div>
+    </body>
+</html>
