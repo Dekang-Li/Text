@@ -1,0 +1,43 @@
+@charset "utf-8";
+/* CSS Document */
+#wrap {
+	width:378px;
+	height:83px;
+	border:1px solid #d4d0c8;	
+}
+#content {
+	height:82px;
+	width:377px;
+	border-right:1px solid #404040;
+	border-bottom:1px solid #404040;
+	padding-top:1px;
+	padding-left:1px;
+}
+#con {
+	width:374px;
+	height:79px;
+	background:#d4d0c8;
+	border-right:1px solid #808080;
+	border-bottom:1px solid #808080;	
+	padding:1px;
+}
+#con1{
+	width:374px;
+	height:18px;
+	background:url(../img/con1.png) repeat-y;	
+	font:14px/18px "宋体";
+	color:#FFF;
+	text-indent:2px;
+}
+#con2 {
+	width:317px;
+	height:50px;
+	background: url(../img/con2.png) no-repeat 10px 11px;
+}
+#con3 {
+	width:222px;
+	height:28px;
+	font:12px/14px "宋体";
+	padding-left:57px;
+	padding-top:12px;
+}

@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* CSS Document */
+#con1 {
+	width:350px;
+	height:350px;
+	padding:27px;
+	border:1px dashed #000;	
+}
+#con2 {
+	width:300px;
+	height:300px;
+	border:5px solid #d7effe;
+	padding:20px;	
+}
+#con3 {
+	width:218px;
+	height:218px;
+	padding:41px;
+	background:#ffa0df;	
+}
+#con4 {
+	width:210px;
+	height:210px;
+	background:#ffa0df;
+	padding:3px;
+	border:1px dashed #FFF;	
+}
+#con5 {
+	width:110px;
+	height:110px;
+	background:#ffa0df;
+	border:1px dashed #FFF;	
+	padding:49px;
+}
+#con6 {
+	width:100px;
+	height:100px;
+	background:#96ff38;
+	border:5px solid #fcff00;	
+}

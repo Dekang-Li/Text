@@ -1,0 +1,34 @@
+@charset "utf-8";
+/* CSS Document */
+#box {
+	width: 300px;
+	border-top: 2px solid #206f96;
+}
+	#header {
+		height: 29px;
+		border: 1px solid #cfcfcf;
+		border-top: none;
+		background: url(../img/header.gif) repeat-x;
+		font: bold italic 10px/20px "宋体";
+}
+	#content {
+		border: 1px solid #cfcfcf;
+		border-top: none;
+}
+		#con1 {
+			height: 57px;
+			background: url(../img/icon1.gif) no-repeat 16px 25px;
+		}
+		#con2 {
+			height: 126px;
+			background: #f7f7f7 url(../img/icon2.gif) no-repeat 9px 51px;
+		}
+		#con3 {
+			height: 76px;
+			background: url(../img/icon3.gif) no-repeat 15px 25px; 
+
+		}
+		#con4 {
+			height: 127px;
+			background: #f7f7f7 url(../img/icon4.gif) no-repeat  13px 50px
+		}

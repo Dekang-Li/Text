@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		function fn(a) {
+			alert(a);
+		}
+		window.onload = function() {
+			document.onclick = function() {
+				var sc = document.createElement("script");
+				sc.src = "http://localhost/20161220kuayu/a.txt";
+//				https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=%E5%A6%99%E5%91%B3%E8%AF%BE%E5%A0%82&cb=fn
+				document.getElementsByTagName("head")[0].appendChild(sc);
+			}
+		}
+	</script>
+</html>
+

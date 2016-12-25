@@ -1,0 +1,28 @@
+@charset "utf-8"; 
+/* CSS Document */
+
+#box {
+	width: 450px;
+	border: 1px solid #767676;
+	border-top: 2px solid #028ffc;
+}
+#box1 {
+	height: 80px;
+	border-bottom: 3px solid #767676; 
+
+}
+#box2 {
+	height: 56px;
+	border-bottom: 1px solid #c6c6c6;
+}
+#box3 {
+	height: 125px;
+	border-bottom: 1px solid #c6c6c6;
+}
+#box4 {
+	height: 75px;
+	border-bottom: 1px solid #c6c6c6;
+}
+#box5 {
+	height: 127px;
+}

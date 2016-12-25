@@ -1,0 +1,125 @@
+@charset "utf-8";
+/* CSS Document */
+body,
+p {
+	margin: 0;
+}
+a {
+	text-decoration: none;
+}
+input {
+	margin: 0;
+	padding: 0;
+	outline: none;
+}
+.clearfix {
+	zoom: 1;
+}
+.clearfix:after {
+	content: "";
+	clear: both;
+	display: block;
+}
+#section {
+	width: 631px;
+	height: 132px;
+	background: #fff;
+	margin: 50px auto;
+}
+#nav1 {
+	width: 570px;
+	font: 12px/22px "宋体";
+	/*border-bottom: 1px solid #d1cfd0;*/
+}
+#nav1 a {
+	padding: 2px 15px 0;
+	color: #3156a6;
+	z-index: 1;
+}
+#nav1 a:hover {
+	font-weight: bold;
+	color: #2c2c2c;
+	border: 1px solid #d1cfd0;
+	border-bottom: 0;
+	background: #efefef;
+	padding: 6px 15px;
+	z-index: 2;
+}
+#nav1 .taobao,#nav1 .taobao:hover {
+	font-weight: bold;
+	color: #2c2c2c;
+	border: 1px solid #d1cfd0;
+	border-bottom: 0;
+	background: #efefef;
+	padding: 6px 15px;
+	z-index: 2;
+}
+#nav1 a:active {
+	color: #de6a2f;
+	border: 1px solid #ededed;
+	background: #efefef;
+	padding: 6px 12px 4px;
+	z-index: 3;
+}
+#nav1 .shop,#nav1 .shop:active {
+	color: #de6a2f;
+	border: 1px solid #ededed;
+	background: #efefef;
+	padding: 6px 12px 4px;
+	z-index: 3;
+}
+#div .div1 {
+	width: 570px;
+	border: 1px solid #d4ced2;
+	box-shadow: inset 0 0 2px #f3f0f9;
+}
+#div .tijiao {
+	float: left;
+	width: 568px;
+	height: 34px;
+	border: 1px solid #fbebd1;
+	box-shadow: inset 0 0 2px #ffe4bc;
+}
+#div .text {
+	width: 436px;
+	height: 30px;
+	border: 1px solid #b1a072;
+	box-shadow: inset 0 0 4px #ccba94;
+	text-indent: 10px;
+}
+#div .tijiao .sousuo {
+	width: 130px;
+	height: 34px;
+	margin-left: -8px;
+	border: 0;
+	background: url(../img/sousuo.gif) no-repeat;
+}
+#div p {
+	float: right;
+	font: 12px/18px "宋体";
+	margin-left: 11px;
+}
+#div p a {
+	color: #3a3a3a;
+}
+#nav2 {
+	width: 554px;
+	height: 25px;
+	font: 12px/24px "宋体";
+	margin: 6px;
+	background: url(../img/dibian.gif) no-repeat 0 24px;
+}
+#nav2 a {
+	color: #666;
+	padding-right: 9px; 
+}
+#nav2 a:hover {
+	color: #ca854e;
+}
+#nav2 .gengduo {
+	padding-left: 8px;
+	color: #a1a4a9;
+}
+#nav2 .gengduo:hover {
+	color: #a1a4a9;
+}

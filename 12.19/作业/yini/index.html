@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<link href="style/weibo.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="znsArea">
+<!--留言-->
+     <div class="takeComment">
+        <textarea name="textarea" class="takeTextField" id="tijiaoText"></textarea>
+        <div class="takeSbmComment">
+            <input type="button" id="btn1" class="inputs" value="" />
+            <span>(可按 Enter 回复)</span>
+        </div>
+    </div>
+<!--已留-->
+    <div class="commentOn">
+        <div class="messList" id="div1" style="height:502px">
+        	<!--<div class="reply">
+                <p class="replyContent">卫士，新款卫士将推出总共14种车身式样。其中， XS旅行款车型售价为32295英镑(约33.6万元)。</p>
+                <p class="operation">
+                    <span class="replyTime">2018-09-08 16:37:60</span>
+                    <span class="handle">
+                    	<a href="javascript:;" class="top">0</a>
+                        <a href="javascript:;" class="down_icon">0</a>
+                        <a href="javascript:;" class="cut">删除</a>
+                    </span>
+                </p>
+            </div>-->
+        </div>
+        <div class="page" id="page">
+        	<a href="javascript:;" class="active">1</a>
+        	<a href="javascript:;">2</a>
+        	<a href="javascript:;">3</a>
+        </div>
+    </div>
+</div>
+</body>
+<script src="myAjax_x2.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    function CreateDate(){
+        this.box=document.getElementById("div1");
+        this.text=document.getElementById("tijiaoText");
+    };
+    CreateDate.prototype={
+        init:function(obj){
+            var _this=this;
+            obj.onclick=function(){
+                _this.Event(obj);
+            };
+            this.loaded(1);
+        },
+        Event:function(){
+            var _this=this;
+            var val=this.text.value.trim();
+            //weibo.php?act=add&content=xxx
+            if(val){
+                ajax({
+                    url:"weibo.php",
+                    data:{
+                        act:"add",
+                        content:val
+                    },
+                    succ:function(json){   ///？？？？
+                        if(!json.error){
+                            _this.loaded(1);
+                            _this.text.value = '';
+                        }
+                    }
+                })
+            }else{
+                alert("请输入内容");
+            };
+
+        },
+        cDiv:function(val,time){
+            var div=document.createElement("div");
+            div.className="reply";
+
+            div.innerHTML=`<p class="replyContent">${val}</p>
+                <p class="operation">
+                    <span class="replyTime">${time}</span>
+                    <span class="handle">
+                        <a href="javascript:;" class="top">0</a>
+                        <a href="javascript:;" class="down_icon">0</a>
+                        <a href="javascript:;" class="cut">删除</a>
+                    </span>
+                </p>`;
+                return div;
+        },
+        toTime:function(time){
+            var str="";
+            var t=new Date(time*1000);
+            var y=t.getFullYear();
+            var m=t.getMonth()+1;
+            var d=t.getDate();
+            var h=t.getHours();
+            var min=t.getMinutes();
+            var s=t.getSeconds();
+            return str=y+"-"+this.toNub(m)+"-"+this.toNub(d)+" "+this.toNub(h)+":"+this.toNub(min)+":"+this.toNub(s);
+
+        },
+        toNub:function(nub){
+            return nub<10?"0"+nub:""+nub;
+
+        },
+        loaded:function(n){
+            //weibo.php?act=get&page=2
+            var _this=this;
+            ajax({
+                url:"weibo.php",
+                data:{
+                    act:"get",
+                    page:n
+                },
+                succ:function(arr){
+                    console.log(arr)
+                    _this.box.innerHTML="";
+                    arr.forEach(function(e,i){
+                        var div=_this.cDiv(e.content,_this.toTime(e.time));
+                         _this.box.appendChild(div);
+                    })
+                }
+            })
+        }
+    };
+    var btn=document.getElementById("btn1");
+    var c1=new CreateDate();
+    c1.init(btn);
+    c1.text.onkeydown=function(ev){
+        if(ev.keyCode == 13){
+            c1.Event();
+        }
+    }
+</script>
+</html>

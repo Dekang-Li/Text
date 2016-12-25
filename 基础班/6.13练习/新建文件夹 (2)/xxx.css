@@ -1,0 +1,29 @@
+@charset "utf-8";
+/*css ducement*/
+#box{
+		width:298px;
+		height:417px;
+		border:1px solid #767676;
+		border-top:2px solid #028ffc;
+} 
+ #div1{ 
+        width:298px;
+        height:29px;
+        border-bottom:1px solid #767676;
+   }
+
+  #div2{ 
+       width:298px;
+       height:56px;
+       border-bottom:1px solid #c6c6c6;
+   }
+   #div3{ 
+       width:298px;
+       height:125px;
+       border-bottom:1px solid #c6c6c6;
+    }
+    #div4{ 
+       width:298px;
+       height:75px;
+       border-bottom:1px solid #c6c6c6;
+     }

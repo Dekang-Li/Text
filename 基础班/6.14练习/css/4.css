@@ -1,0 +1,12 @@
+@charset "utf-8";
+/*css document*/
+#box {
+	width: 900px;
+	height: 600px;
+	border: 10px solid #000;
+	background-color: #CF0;
+	background-image: url(../img/img1.jpg);
+	background-repeat: no-repeat;
+	background-position:80px center;
+
+}

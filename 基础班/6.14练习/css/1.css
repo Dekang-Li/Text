@@ -1,0 +1,8 @@
+@charset "utf-8";
+/*css document*/
+#box {
+	width: 300px;
+	height: 300px;
+	border: 10px solid red;
+	font: 15px/30px "宋体";
+}
