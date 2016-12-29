@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>商城</title>
+		<style type="text/css">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+			
+			a {
+				text-decoration: none;
+			}
+			
+			img {
+				border: none;
+				vertical-align: top;
+			}
+			
+			.clearFix:after {
+				content: "";
+				display: block;
+				clear: both;
+			}
+			
+			#header {
+				width: 1300px;
+				height: 64px;
+				background-Color: #020304;
+				margin: 0 auto;
+			}
+			
+			#logo {
+				float: left;
+				width: 83px;
+				height: 23px;
+				margin-left: 146px;
+				padding-top: 20px;
+			}
+			
+			#logo img {
+				width: 83px;
+				height: 23px;
+			}
+			
+			#nav {
+				float: left;
+				width: 375px;
+				height: 64px;
+				margin-left: 256px;
+			}
+			
+			#nav a {
+				display: inline-block;
+				height: 64px;
+				font: 12px/64px arial;
+				padding: 0 10px;
+				color: #64759f;
+			}
+			
+			#nav a:nth-of-type(3) {
+				color: #36c2ff;
+			}
+			
+			#shopping {
+				float: left;
+				width: 24px;
+				height: 20px;
+				margin: 23px 0 0 100px;
+			}
+			
+			#shopping img {
+				width: 24px;
+				height: 20px;
+			}
+			
+			#shopping_Cart {
+				margin: 23px 0 0 40px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="clearFix">
+			<!--整体-->
+			<div id="logo">
+				<a href="">
+					<img src="img/explore.png" />
+				</a>
+			</div>
+			<nav id="nav">
+				<a href="">Home</a>
+				<a href="">Mens</a>
+				<a href="">Womens</a>
+				<a href="">Lids</a>
+				<a href="">Blog</a>
+			</nav>
+			<div id="shopping">
+				<a href="">
+					<img src="img/cart.png" />
+				</a>
+			</div>
+			<select id='shopping_Cart'>
+				<option>My Account</option>
+			</select>
+		</header>
+	</body>
+
+</html>
