@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#box div {
+				width: 300px;
+				height: 200px;
+				border: 1px solid #000;
+			}
+			
+			#box div.hide {
+				display: none;
+			}
+			
+			#box div.show {
+				display: block;
+			}
+			
+			.active {
+				background: yellow;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<!--<input type="button" name="" id="" value="新闻" class="active" />
+			<input type="button" name="" id="" value="图片" />
+			<input type="button" name="" id="" value="军事" />
+			<div class="show">今天的新闻是.....</div>
+			<div class="hide">今天的图片有.....</div>
+			<div class="hide">今天的外星人又来袭击地球了，某个人又拯救了世界.....</div>-->
+		</div>
+	</body>
+	<script src="../../jquery-3.1.1.min.js"></script>
+	<script>
+		(function(global,factory,$) {
+			factory(global, $)
+		})(typeof window !== "undefined"? window : this ,function(global, $, noGlobal) {
+			
+			function Tap(that) {
+				this.box = that;
+				this.settings = {
+					nav: ['新闻1', '图片1', '军事1'],
+					content: [
+						'今天的新闻是.....',
+						'今天的图片有.....',
+						'今天的外星人又来袭击地球了，某个人又拯救了世界.....'
+					]
+				}
+			}
+			
+			$.extend(Tap.prototype,{
+				init: function(opt) {
+					$.extend(this.settings,opt);
+					this.createBtn();
+					this.createDiv();
+					this.change();
+				},
+				createBtn: function() {
+					var _this = this;
+					$.each(this.settings.nav, function(i, e) {
+						var a = (i===0)?"active":"";
+						$(_this.box).append("<input type='button' value='"+e+"' class = '"+a+"' />");
+					});
+				},
+				createDiv: function() {
+					var _this = this;
+					$.each(this.settings.content, function(i, e) {
+						var a = (i===0)?"show":"hide";
+						$(_this.box).append("<div class='"+a+"'>"+e+"</div>");
+					});
+				},
+				change: function() {
+					var btns = $(this.box).find("input");
+					var divs = $(this.box).find("div"); 
+					btns.click(function() {
+						$(this).addClass("active").siblings("input").removeClass("active");
+						divs.eq($(this).index("input")).show().siblings("div").hide();
+					});
+					
+				}
+			});
+			$.fn.extend({
+				tap: function(opt) {
+					var t = new Tap(this);
+					t.init(opt);
+				}
+			})
+		},jQuery);
+		
+		$("#box").tap();
+	</script>
+</html>
