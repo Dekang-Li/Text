@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box"></div>
+		<script src="js/react.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/react-dom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/browser.min.js"></script>
+		<script type="text/babel">
+			var Head = React.createClass( {
+				render:function() {
+					return (
+						<input type="text" value="sss"/>
+					)
+				}
+			})
+			ReactDOM.render(
+				<Head />,
+				document.getElementById("box")
+			);
+		</script>
+	</body>
+</html>

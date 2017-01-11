@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.red {
+				width: 100px;
+				height: 100px;
+				background: red;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div id="box"></div>
+	</body>
+	<script src="js/react.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/react-dom.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/browser.min.js"></script>
+	<script type="text/babel">
+		var Toggle = React.createClass({
+			getInitialState:function() {
+				return {
+					onOff: true
+				}
+			},
+			render:function() {
+				return (
+					<div>
+						<Btn on={this.state.onOff} that={this} />
+						<Div on={this.state.onOff} />
+					</div>
+				)
+			}
+		})
+		
+		var Btn = React.createClass({
+			fnClick: function() {
+				this.props.that.setState({
+					onOff: !this.props.on
+				})
+			},
+			change: function() {
+				
+			},
+			render:function() {
+				var v = this.props.on?'隐藏':'显示'
+				return <input type="button" value={v} onClick={this.fnClick}
+					onChange={this.change} />
+			}
+		})
+		
+		var Div = React.createClass({
+			render:function() {
+				var styleFn = {
+					display:this.props.on?'block':'none'
+				}
+				return <div className="red" style={styleFn}></div>
+			}		
+		});
+		
+		ReactDOM.render(
+			<Toggle />,
+			document.getElementById('box')
+		);
+	</script>
+</html>
